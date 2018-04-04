@@ -2,9 +2,13 @@ package mvanbrummen.gitforge.utils
 
 import pureconfig.loadConfig
 
-case class Config(http: Http)
+case class Config(http: Http, jwt: Jwt, db: Db)
 
 case class Http(interface: String, port: Int)
+
+case class Db(url: String, user: String, password: String)
+
+case class Jwt(secret: String)
 
 object Config {
   def load() =
@@ -12,6 +16,5 @@ object Config {
       case Right(config) => config
       case Left(error) => throw new RuntimeException(s"Cannot read config: \n ${error.toList.mkString("\n")}")
     }
-
 }
 
