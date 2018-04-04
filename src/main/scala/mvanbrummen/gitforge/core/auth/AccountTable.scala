@@ -14,7 +14,7 @@ private[auth] trait AccountTable {
     def password = column[String]("password")
     def email = column[String]("email_address")
 
-    def * = (id, username, password, email) <> ((Account.apply _).tupled, Account.unapply)
+    def * = (id, username, email, password) <> ((Account.apply _).tupled, Account.unapply)
   }
 
   protected val accounts = TableQuery[AccountSchema]
