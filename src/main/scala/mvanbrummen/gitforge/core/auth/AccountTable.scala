@@ -3,7 +3,7 @@ package mvanbrummen.gitforge.core.auth
 import mvanbrummen.gitforge.core.{ Account, AccountUUID }
 import mvanbrummen.gitforge.utils.DatabaseConnection
 
-private[auth] trait AccountTable {
+trait AccountTable {
 
   protected val databaseConnection: DatabaseConnection
   import databaseConnection.profile.api._

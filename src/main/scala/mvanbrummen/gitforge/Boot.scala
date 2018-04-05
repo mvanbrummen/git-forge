@@ -4,7 +4,7 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import mvanbrummen.gitforge.core.auth.{ AccountRepository, AccountService }
-import mvanbrummen.gitforge.core.repository.RepositoryService
+import mvanbrummen.gitforge.core.repository.{ RepositoryRepository, RepositoryService }
 import mvanbrummen.gitforge.http.HttpRoutes
 import mvanbrummen.gitforge.utils.{ Config, DatabaseConnection, DatabaseMigration }
 
@@ -33,10 +33,11 @@ object Boot extends App {
     )
 
     val accountRepository = new AccountRepository(databaseConnector)
+    val repositoryRepository = new RepositoryRepository(databaseConnector)
 
     val accountSevice = new AccountService(accountRepository, config.jwt.secret)
-    val repositoryService = new RepositoryService()
-    val httpRoutes = new HttpRoutes(repositoryService, accountSevice)
+    val repositoryService = new RepositoryService(repositoryRepository)
+    val httpRoutes = new HttpRoutes(repositoryService, accountSevice, config.jwt.secret)
 
     val bindingFuture = Http().bindAndHandle(httpRoutes.routes, config.http.interface, config.http.port)
 

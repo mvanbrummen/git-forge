@@ -1,22 +1,18 @@
 package mvanbrummen.gitforge.core.repository
 
-import mvanbrummen.gitforge.core.Repository
+import java.util.UUID
+
+import mvanbrummen.gitforge.core.{ AccountUUID, Repository }
 
 import scala.concurrent.{ ExecutionContext, Future }
 
-class RepositoryService()(implicit ec: ExecutionContext) {
+class RepositoryService(repositoryRepository: RepositoryRepository)(implicit ec: ExecutionContext) {
 
-  private val repos = List(
-    Repository(null, "avro-schema-validator", None),
-    Repository(null, "git-forge", Some("Git hosting made for developers")),
-    Repository(null, "shite-code", Some("Shite code daily")),
-    Repository(null, "avro-npm", None)
-  )
-
-  def findRepositoriesByAccount(userName: String): Future[List[Repository]] = {
-    Future {
-      repos.filter(_.account.username.equalsIgnoreCase(userName))
-    }
+  def findRepositoriesByAccount(name: String): Future[Seq[Repository]] = {
+    repositoryRepository.findAll(name)
   }
 
+  def saveRepository(account: AccountUUID, name: String, description: Option[String]): Future[Repository] = {
+    repositoryRepository.save(Repository(UUID.randomUUID(), account, name, description))
+  }
 }

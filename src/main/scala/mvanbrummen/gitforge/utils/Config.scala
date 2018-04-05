@@ -2,13 +2,13 @@ package mvanbrummen.gitforge.utils
 
 import pureconfig.loadConfig
 
-case class Config(http: Http, jwt: Jwt, db: Db)
+case class Config(http: Http, jwt: JWT, db: Db)
 
 case class Http(interface: String, port: Int)
 
 case class Db(url: String, user: String, password: String)
 
-case class Jwt(secret: String)
+case class JWT(secret: String)
 
 object Config {
   def load() =

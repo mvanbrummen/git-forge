@@ -8,10 +8,10 @@ import mvanbrummen.gitforge.http.routes.{ AccountRoute, HealthRoute, RepositoryR
 
 import scala.concurrent.ExecutionContext
 
-class HttpRoutes(repositoryService: RepositoryService, accountService: AccountService)(implicit ec: ExecutionContext) {
+class HttpRoutes(repositoryService: RepositoryService, accountService: AccountService, secretKey: String)(implicit ec: ExecutionContext) {
 
   private val healthRoute = new HealthRoute
-  private val repositoryRoute = new RepositoryRoute(repositoryService)
+  private val repositoryRoute = new RepositoryRoute(repositoryService, secretKey)
   private val accountRoute = new AccountRoute(accountService)
 
   lazy val routes: Route = repositoryRoute.routes ~ healthRoute.routes ~ accountRoute.routes
