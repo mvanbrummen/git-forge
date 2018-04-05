@@ -3,10 +3,10 @@ package mvanbrummen.gitforge
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import mvanbrummen.gitforge.core.auth.{AccountRepository, AccountService}
+import mvanbrummen.gitforge.core.auth.{ AccountRepository, AccountService }
 import mvanbrummen.gitforge.core.repository.RepositoryService
 import mvanbrummen.gitforge.http.HttpRoutes
-import mvanbrummen.gitforge.utils.{Config, DatabaseConnection, DatabaseMigration}
+import mvanbrummen.gitforge.utils.{ Config, DatabaseConnection, DatabaseMigration }
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

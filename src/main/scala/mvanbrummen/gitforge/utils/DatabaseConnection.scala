@@ -1,6 +1,6 @@
 package mvanbrummen.gitforge.utils
 
-import com.zaxxer.hikari.{HikariConfig, HikariDataSource}
+import com.zaxxer.hikari.{ HikariConfig, HikariDataSource }
 
 class DatabaseConnection(jdbcUrl: String, dbUser: String, dbPassword: String) {
 
