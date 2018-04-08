@@ -6,7 +6,7 @@ import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
 import io.circe.generic.auto._
 import mvanbrummen.gitforge.core.repository.RepositoryService
 import mvanbrummen.gitforge.utils.SecurityDirectives
-
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 import scala.concurrent.ExecutionContext
 
 class RepositoryRoute(
@@ -17,23 +17,25 @@ class RepositoryRoute(
   import SecurityDirectives._
 
   lazy val routes: Route =
-    pathPrefix("repository") {
-      pathEndOrSingleSlash {
-        post {
-          authenticate(secretKey) { accountId =>
-            entity(as[Repository]) { repo =>
-              complete(repositoryService.saveRepository(accountId, repo.name, repo.description))
+    cors() {
+      pathPrefix("repository") {
+        pathEndOrSingleSlash {
+          post {
+            authenticate(secretKey) { accountId =>
+              entity(as[Repository]) { repo =>
+                complete(repositoryService.saveRepository(accountId, repo.name, repo.description))
+              }
             }
           }
-        }
-      } ~
-        get {
-          path(Segment) { username =>
-            onComplete(repositoryService.findRepositoriesByAccount(username)) { repos =>
-              complete(repos)
+        } ~
+          get {
+            path(Segment) { username =>
+              onComplete(repositoryService.findRepositoriesByAccount(username)) { repos =>
+                complete(repos)
+              }
             }
           }
-        }
+      }
     }
 
   private case class Repository(name: String, description: Option[String])
