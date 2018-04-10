@@ -8,7 +8,7 @@ package object core {
   type RepositoryUUID = UUID
   type UserAuthToken = String
 
-  final case class TokenClaims(id: AccountUUID, emailAddress: String)
+  final case class TokenClaims(id: AccountUUID, username: String, emailAddress: String)
   final case class TokenResponse(token: UserAuthToken)
 
   final case class Repository(id: RepositoryUUID, accountId: AccountUUID, name: String, description: Option[String])

@@ -6,7 +6,7 @@ import akka.stream.ActorMaterializer
 import mvanbrummen.gitforge.core.auth.{ AccountRepository, AccountService }
 import mvanbrummen.gitforge.core.repository.{ RepositoryRepository, RepositoryService }
 import mvanbrummen.gitforge.http.HttpRoutes
-import mvanbrummen.gitforge.utils.{ Config, DatabaseConnection, DatabaseMigration }
+import mvanbrummen.gitforge.utils.{ Config, DatabaseConnection, DatabaseMigration, FileUtil }
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
@@ -38,6 +38,8 @@ object Boot extends App {
     val accountSevice = new AccountService(accountRepository, config.jwt.secret)
     val repositoryService = new RepositoryService(repositoryRepository)
     val httpRoutes = new HttpRoutes(repositoryService, accountSevice, config.jwt.secret)
+
+    FileUtil.homeDir
 
     val bindingFuture = Http().bindAndHandle(httpRoutes.routes, config.http.interface, config.http.port)
 

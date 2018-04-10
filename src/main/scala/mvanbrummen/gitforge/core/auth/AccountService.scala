@@ -20,13 +20,13 @@ class AccountService(
     accountRepository
       .findAccount(username)
       .filterT(a => password.isBcrypted(a.password))
-      .mapT(a => encodeJwt(TokenClaims(a.id, a.emailAddress)))
+      .mapT(a => encodeJwt(TokenClaims(a.id, a.username, a.emailAddress)))
   }
 
   def signup(username: String, email: String, password: String): Future[TokenResponse] = {
     accountRepository
       .saveAccount(Account(UUID.randomUUID(), username, email, password.bcrypt))
-      .map(account => encodeJwt(TokenClaims(account.id, account.emailAddress)))
+      .map(a => encodeJwt(TokenClaims(a.id, a.username, a.emailAddress)))
   }
 
   private def encodeJwt(claims: TokenClaims): TokenResponse = {
