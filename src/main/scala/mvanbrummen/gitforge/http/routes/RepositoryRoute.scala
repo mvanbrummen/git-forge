@@ -36,7 +36,16 @@ class RepositoryRoute(
               }
             }
           }
-      }
+
+      } ~
+        pathPrefix("test") {
+          get {
+            path(Segment / Segment) {
+              case (account, repoName) =>
+                complete(repositoryService.listDirectory(account, repoName))
+            }
+          }
+        }
     }
 
   private case class Repository(name: String, description: Option[String])

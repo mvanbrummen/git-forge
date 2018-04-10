@@ -10,6 +10,8 @@ object FileUtil {
 
   def repositoryDir(account: String, name: String): File = createDir(s"${homeDir.getAbsolutePath}/$account/$name")
 
+  def gitDir(account: String, name: String): File = createDir(s"${homeDir.getAbsolutePath}/$account/$name/.git")
+
   private def createDir(path: String): File = {
     val dir = new File(path)
     dir.mkdirs()
