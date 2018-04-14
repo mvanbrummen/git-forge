@@ -1,4 +1,4 @@
-package mvanbrummen.gitforge.utils
+package mvanbrummen.gitforge.utils.database
 
 import com.zaxxer.hikari.{ HikariConfig, HikariDataSource }
 

@@ -2,7 +2,7 @@ package mvanbrummen.gitforge.core.repository
 
 import mvanbrummen.gitforge.core.Repository
 import mvanbrummen.gitforge.core.auth.AccountTable
-import mvanbrummen.gitforge.utils.DatabaseConnection
+import mvanbrummen.gitforge.utils.database.DatabaseConnection
 
 import scala.concurrent.{ ExecutionContext, Future }
 

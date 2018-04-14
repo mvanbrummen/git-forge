@@ -1,7 +1,7 @@
 package mvanbrummen.gitforge.core.auth
 
 import mvanbrummen.gitforge.core.{ Account, AccountUUID }
-import mvanbrummen.gitforge.utils.DatabaseConnection
+import mvanbrummen.gitforge.utils.database.DatabaseConnection
 
 trait AccountTable {
 

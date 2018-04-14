@@ -1,7 +1,7 @@
 package mvanbrummen.gitforge.core.repository
 
 import mvanbrummen.gitforge.core.{ Account, AccountUUID, Repository, RepositoryUUID }
-import mvanbrummen.gitforge.utils.DatabaseConnection
+import mvanbrummen.gitforge.utils.database.DatabaseConnection
 
 trait RepositoryTable {
 
