@@ -2,9 +2,10 @@ package mvanbrummen.gitforge.utils.git
 
 import mvanbrummen.gitforge.utils.FileUtil._
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.{Constants, Repository}
+import org.eclipse.jgit.lib.{ Constants, Repository }
 import org.eclipse.jgit.revwalk.DepthWalk.RevWalk
 import org.eclipse.jgit.treewalk.TreeWalk
+import org.eclipse.jgit.treewalk.filter.PathFilter
 
 import scala.collection.JavaConverters._
 
@@ -25,8 +26,9 @@ object JGitUtil {
     val totalCommits = commits.size
     val lastCommit = commits.headOption
     val branches = listBranches(repository)
+    val readme = getReadmeContents(repository)
 
-    RepositorySummary(isClean, branches, totalCommits, lastCommit, dirContents)
+    RepositorySummary(isClean, branches, totalCommits, lastCommit, dirContents, readme)
   }
 
   def getAllCommits(repository: Repository): Seq[Commit] = {
@@ -58,7 +60,7 @@ object JGitUtil {
   def listDirectory(repository: Repository): Seq[GitDirectoryItem] = {
     if (isRepositoryClean(repository)) return Seq.empty
 
-    val ref = repository.getRef("HEAD")
+    val ref = repository.getRef(Constants.HEAD)
     val revWalk = new RevWalk(repository, 1)
     val commit = revWalk.parseCommit(ref.getObjectId)
     val tree = commit.getTree
@@ -71,6 +73,26 @@ object JGitUtil {
       .takeWhile(b => b)
       .map { _ => GitDirectoryItem(treeWalk.isSubtree, treeWalk.getPathString) }
       .toSeq
+      .sortBy(_.isDir)
+      .reverse
   }
 
+  def getReadmeContents(repository: Repository): Option[String] = {
+    val ref = repository.getRef(Constants.HEAD)
+    val revWalk = new RevWalk(repository, 1)
+    val commit = revWalk.parseCommit(ref.getObjectId)
+    val tree = commit.getTree
+
+    val treeWalk = new TreeWalk(repository)
+    treeWalk.addTree(tree)
+    treeWalk.setRecursive(false)
+    treeWalk.setFilter(PathFilter.create("README.md"))
+
+    if (!treeWalk.next()) return None
+
+    val objectId = treeWalk.getObjectId(0)
+    val loader = repository.open(objectId)
+
+    Some(new String(loader.getBytes))
+  }
 }

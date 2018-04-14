@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.is-success {
+  background-color: #ff8026 !important;
+}
+
+.primary-font {
+  color: #ff8026;
+}
+
+#nprogress .bar {
+  background: #ff8026 !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #ff8026, 0 0 5px #ff8026 !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #ff8026 !important;
+  border-left-color: #ff8026 !important;
+}

@@ -7,7 +7,8 @@ package object git {
     branches: Seq[Branch],
     totalCommits: Int,
     lastCommit: Option[Commit],
-    items: Seq[GitDirectoryItem]
+    items: Seq[GitDirectoryItem],
+    readme: Option[String]
   )
 
   case class GitDirectoryItem(isDir: Boolean, path: String)

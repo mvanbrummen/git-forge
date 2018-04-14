@@ -1,13 +1,20 @@
 lazy val akkaHttpVersion = "10.0.11"
 lazy val akkaVersion = "2.5.11"
 
-lazy val root = (project in file(".")).
-  settings(
-    inThisBuild(List(
-      organization := "mvanbrummen.gitforge",
-      scalaVersion := "2.12.4"
-    )),
-    name := "git-forge",
+lazy val projectSettings = Seq(
+  name := "git-forge",
+  version := "0.1-SNAPSHOT",
+  organization := "mvanbrummen.gitforge",
+  scalaVersion := "2.12.4"
+)
+
+lazy val root = (project in file("."))
+  .aggregate(backend)
+
+lazy val backend = project
+  .enablePlugins(JavaAppPackaging)
+  .settings(projectSettings: _*)
+  .settings(
     libraryDependencies ++= Seq(
       // akka
       "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,

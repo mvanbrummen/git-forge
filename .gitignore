@@ -3,3 +3,7 @@
 target/
 .DS_Store
 .gitforge
+
+
+node_modules/
+build/
