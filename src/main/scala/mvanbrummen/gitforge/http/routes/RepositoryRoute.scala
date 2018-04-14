@@ -34,18 +34,15 @@ class RepositoryRoute(
               onComplete(repositoryService.findRepositoriesByAccount(username)) { repos =>
                 complete(repos)
               }
-            }
+            } ~
+              path("summary" / Segment / Segment) {
+                case (account, name) =>
+                  onComplete(repositoryService.getRepositorySummary(account, name)) { summary =>
+                    complete(summary)
+                  }
+              }
           }
-
-      } ~
-        pathPrefix("test") {
-          get {
-            path(Segment / Segment) {
-              case (account, repoName) =>
-                complete(repositoryService.listDirectory(account, repoName))
-            }
-          }
-        }
+      }
     }
 
   private case class Repository(name: String, description: Option[String])
