@@ -77,6 +77,32 @@ object JGitUtil {
       .reverse
   }
 
+  def listDirectory(repository: Repository, path: String): Seq[GitDirectoryItem] = {
+    val ref = repository.getRef(Constants.HEAD)
+    val revWalk = new RevWalk(repository, 100)
+    val commit = revWalk.parseCommit(ref.getObjectId)
+    val tree = commit.getTree
+
+    val treeWalk = new TreeWalk(repository)
+    treeWalk.addTree(tree)
+    treeWalk.setRecursive(false)
+    treeWalk.setFilter(PathFilter.create(path))
+
+    // TODO is there a way to avoid mutable Seq?
+    var items = scala.collection.mutable.Seq.empty[GitDirectoryItem]
+
+    Iterator.continually(treeWalk.next())
+      .takeWhile(b => b)
+      .foreach { _ =>
+        items = items :+ GitDirectoryItem(treeWalk.isSubtree, treeWalk.getPathString)
+        if (treeWalk.isSubtree) treeWalk.enterSubtree()
+      }
+
+    items
+      .sortBy(_.isDir)
+      .reverse
+  }
+
   def getReadmeContents(repository: Repository): Option[String] = {
     val ref = repository.getRef(Constants.HEAD)
     val revWalk = new RevWalk(repository, 1)
