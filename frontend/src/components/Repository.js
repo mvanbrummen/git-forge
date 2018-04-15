@@ -259,7 +259,7 @@ class Repository extends Component {
                                                 <tr key={i}>
                                                     <td>
                                                         <i class={f.isDir ? "fa fa-folder" : "fa fa-file-code-o"}></i>
-                                                        <a href="#"> {f.path}</a>
+                                                        <Link to={this.props.match.url + '/blob/' + f.path}> {f.path}</Link>
                                                     </td>
                                                     <td>init commit</td>
                                                     <td className="has-text-right is-size-7">2 years ago</td>

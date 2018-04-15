@@ -9,6 +9,7 @@ import { authUser } from '../util/AuthService';
 import { loadProgressBar } from 'axios-progress-bar';
 import 'axios-progress-bar/dist/nprogress.css';
 import CreateRepository from './CreateRepository';
+import RepositoryDrillDown from './RepositoryDrillDown';
 
 class App extends Component {
     constructor() {
@@ -28,7 +29,8 @@ class App extends Component {
                     <Route exact path="/signup" component={Signup} />
                     <Route exact path="/repos/new" component={CreateRepository} />
 
-                    <Route path="/repos/:userName/:repoName" component={Repository} />
+                    <Route exact path="/repos/:userName/:repoName" component={Repository} />
+                    <Route path="/repos/:userName/:repoName/blob/**" component={RepositoryDrillDown} />
                 </Switch>
 
             </div>

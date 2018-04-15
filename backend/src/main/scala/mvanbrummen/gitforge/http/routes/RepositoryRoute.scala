@@ -29,18 +29,30 @@ class RepositoryRoute(
             }
           }
         } ~
-          get {
-            path(Segment) { username =>
-              onComplete(repositoryService.findRepositoriesByAccount(username)) { repos =>
-                complete(repos)
-              }
-            } ~
-              path("summary" / Segment / Segment) {
-                case (account, name) =>
+          pathPrefix(Segment / Segment) {
+            case (account, name) =>
+              path("summary") {
+                get {
                   onComplete(repositoryService.getRepositorySummary(account, name)) { summary =>
                     complete(summary)
                   }
+                }
+              } ~
+                path("blob" / Segments) { paths =>
+                  get {
+                    onComplete(repositoryService.getRepositoryItemsByPath(account, name, paths.mkString("/"))) { items =>
+                      complete(items)
+                    }
+                  }
+
+                }
+          } ~
+          path(Segment) { username =>
+            get {
+              onComplete(repositoryService.findRepositoriesByAccount(username)) { repos =>
+                complete(repos)
               }
+            }
           }
       }
     }
