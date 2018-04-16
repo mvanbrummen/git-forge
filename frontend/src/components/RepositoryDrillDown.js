@@ -33,6 +33,7 @@ class RepositoryDrillDown extends Component {
 
     render() {
         const { items } = this.state;
+        const breadcrumbs = this.props.match.params[0].split("/");
 
         return (
             <div className="container">
@@ -41,7 +42,13 @@ class RepositoryDrillDown extends Component {
                         <nav className="breadcrumb" aria-label="breadcrumbs">
                             <ul>
                                 <li><i class="fa fa-book"></i><Link to="/"><strong>&nbsp;{this.props.match.params.userName}</strong></Link></li>
-                                <li><a href="#"><strong>{this.props.match.params.repoName}</strong></a></li>
+                                <li><Link to={"/repos/" + this.props.match.params.userName + "/" + this.props.match.params.repoName}><strong>{this.props.match.params.repoName}</strong></Link></li>
+
+                                {
+                                    breadcrumbs.map((breadcrumb, i) =>
+                                        <li key={i}><Link to={"/repos/" + this.props.match.params.userName + "/" + this.props.match.params.repoName}><strong>{breadcrumb}</strong></Link></li>
+                                    )
+                                }
                             </ul>
                         </nav>
 

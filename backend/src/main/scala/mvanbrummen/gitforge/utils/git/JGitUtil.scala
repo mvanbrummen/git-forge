@@ -78,6 +78,8 @@ object JGitUtil {
   }
 
   def listDirectory(repository: Repository, path: String): Seq[GitDirectoryItem] = {
+    val params = path.split("/")
+
     val ref = repository.getRef(Constants.HEAD)
     val revWalk = new RevWalk(repository, 100)
     val commit = revWalk.parseCommit(ref.getObjectId)
@@ -94,7 +96,11 @@ object JGitUtil {
     Iterator.continually(treeWalk.next())
       .takeWhile(b => b)
       .foreach { _ =>
-        items = items :+ GitDirectoryItem(treeWalk.isSubtree, treeWalk.getPathString)
+        val relPath = treeWalk.getPathString.replace(s"$path/", "")
+        if (!relPath.contains("/") && !relPath.equalsIgnoreCase(path) && !params.contains(relPath)) {
+          items = items :+ GitDirectoryItem(treeWalk.isSubtree, relPath)
+        }
+
         if (treeWalk.isSubtree) treeWalk.enterSubtree()
       }
 
