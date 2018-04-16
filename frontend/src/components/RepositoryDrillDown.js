@@ -21,6 +21,12 @@ class RepositoryDrillDown extends Component {
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.match.url !== this.props.match.url) {
+            this.getItemsByPath(nextProps.match.params.userName, nextProps.match.params.repoName, nextProps.match.params[0])
+        }
+    }
+
     componentDidMount() {
         this.getItemsByPath(this.props.match.params.userName, this.props.match.params.repoName, this.props.match.params[0])
     }
@@ -61,7 +67,7 @@ class RepositoryDrillDown extends Component {
                                         <tr key={i}>
                                             <td>
                                                 <i class={f.isDir ? "fa fa-folder" : "fa fa-file-code-o"}></i>
-                                                <Link to={this.props.match.url + f.path}> {f.path}</Link>
+                                                <Link to={this.props.match.url + '/' + f.path}> {f.path}</Link>
                                             </td>
                                             <td>init commit</td>
                                             <td className="has-text-right is-size-7">2 years ago</td>
