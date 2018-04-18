@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getItemsByPath } from '../util/RepositoryService';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/styles/hljs';
+
+import { getItemsByPath, getBlobContentsByPath } from '../util/RepositoryService';
 
 class RepositoryDrillDown extends Component {
 
     constructor(props) {
-        super();
+        super(props);
+
+        this.props.location.state = { displayFile: false };
 
         this.state = {
-            items: []
+            items: [],
+            displayFileContents: ''
         }
     }
 
@@ -28,12 +34,20 @@ class RepositoryDrillDown extends Component {
     }
 
     componentDidMount() {
-        this.getItemsByPath(this.props.match.params.userName, this.props.match.params.repoName, this.props.match.params[0])
+        const userName = this.props.match.params.userName;
+        const repoName = this.props.match.params.repoName;
+        const path = this.props.match.params[0];
+
+        this.getItemsByPath(userName, repoName, path)
     }
 
     render() {
         const { items } = this.state;
         const breadcrumbs = this.props.match.params[0].split("/");
+
+        const userName = this.props.match.params.userName;
+        const repoName = this.props.match.params.repoName;
+        const path = this.props.match.params[0];
 
         return (
             <div className="container">
@@ -74,7 +88,7 @@ class RepositoryDrillDown extends Component {
                                         <tr key={i}>
                                             <td>
                                                 <i class={f.isDir ? "fa fa-folder" : "fa fa-file-code-o"}></i>
-                                                <Link to={this.props.match.url + '/' + f.path}> {f.path}</Link>
+                                                <Link to={{ pathname: this.props.match.url + '/' + f.path, state: { displayFile: !f.isDir } }}> {f.path}</Link>
                                             </td>
                                             <td>init commit</td>
                                             <td className="has-text-right is-size-7">2 years ago</td>
@@ -85,9 +99,57 @@ class RepositoryDrillDown extends Component {
                             </tbody>
                         </table>
 
+
+                        {this.props.location.state.displayFile &&
+                            <BlobView userName={userName} repoName={repoName} path={path} />
+                        }
                     </div>
                 </div>
             </div>
+        )
+    }
+}
+
+class BlobView extends Component {
+
+    constructor(props) {
+        super();
+
+        this.state = {
+            displayFileContents: ''
+        }
+    }
+
+    componentDidMount() {
+        const { userName, repoName, path } = this.props;
+        getBlobContentsByPath(userName, repoName, path).then(contents =>
+            this.setState({
+                displayFileContents: contents
+            })
+        )
+    }
+
+    render() {
+        return (
+            <table className="table is-fullwidth is-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="fa fa-book"></i> {this.props.path}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td className="code-td">
+                            <div className="content">
+                                <SyntaxHighlighter showLineNumbers={true} language='javascript' style={docco}>{this.state.displayFileContents}</SyntaxHighlighter>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
         )
     }
 }

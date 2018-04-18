@@ -24,3 +24,11 @@ body {
   border-top-color: #ff8026 !important;
   border-left-color: #ff8026 !important;
 }
+
+.readme-contents {
+  padding: 20px 20px 20px 20px;
+}
+
+.code-td {
+  padding: 0 !important;
+}

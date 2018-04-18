@@ -288,7 +288,7 @@ class Repository extends Component {
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <div className="content">
+                                                    <div className="content readme-contents">
                                                         <ReactMarkdown source={repoSummary.readme} />
                                                     </div>
                                                 </td>
