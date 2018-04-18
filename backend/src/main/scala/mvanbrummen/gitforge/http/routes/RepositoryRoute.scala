@@ -11,9 +11,9 @@ import mvanbrummen.gitforge.utils.SecurityDirectives
 import scala.concurrent.ExecutionContext
 
 class RepositoryRoute(
-    repositoryService: RepositoryService,
-    secretKey: String
-)(implicit ec: ExecutionContext) {
+                       repositoryService: RepositoryService,
+                       secretKey: String
+                     )(implicit ec: ExecutionContext) {
 
   import SecurityDirectives._
 
@@ -45,6 +45,13 @@ class RepositoryRoute(
                     }
                   }
 
+                } ~
+                path("contents" / Segments) { paths =>
+                  get {
+                    onComplete(repositoryService.getBlobContentsByPath(account, name, paths.mkString("/"))) { contents =>
+                      complete(contents)
+                    }
+                  }
                 }
           } ~
           path(Segment) { username =>

@@ -2,7 +2,7 @@ package mvanbrummen.gitforge.utils.git
 
 import mvanbrummen.gitforge.utils.FileUtil._
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.{ Constants, Repository }
+import org.eclipse.jgit.lib.{Constants, Repository}
 import org.eclipse.jgit.revwalk.DepthWalk.RevWalk
 import org.eclipse.jgit.treewalk.TreeWalk
 import org.eclipse.jgit.treewalk.filter.PathFilter
@@ -126,5 +126,34 @@ object JGitUtil {
     val loader = repository.open(objectId)
 
     Some(new String(loader.getBytes))
+  }
+
+  def getFileContents(repository: Repository, filePath: String): Option[String] = {
+    val ref = repository.getRef(Constants.HEAD)
+    val revWalk = new RevWalk(repository, 100)
+    val commit = revWalk.parseCommit(ref.getObjectId)
+    val tree = commit.getTree
+
+    val treeWalk = new TreeWalk(repository)
+    treeWalk.addTree(tree)
+    treeWalk.setRecursive(false)
+    treeWalk.setFilter(PathFilter.create(filePath))
+
+    var contents: Option[String] = None
+
+    Iterator.continually(treeWalk.next())
+      .takeWhile(b => b && contents.isEmpty)
+      .foreach { _ =>
+        if (treeWalk.getPathString.equalsIgnoreCase(filePath)) {
+          val objectId = treeWalk.getObjectId(0)
+          val loader = repository.open(objectId)
+
+          contents = Some(new String(loader.getBytes))
+        }
+
+        if (treeWalk.isSubtree) treeWalk.enterSubtree()
+      }
+
+    contents
   }
 }
