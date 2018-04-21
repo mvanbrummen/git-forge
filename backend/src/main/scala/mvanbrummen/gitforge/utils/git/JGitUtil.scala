@@ -2,14 +2,36 @@ package mvanbrummen.gitforge.utils.git
 
 import mvanbrummen.gitforge.utils.FileUtil._
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.{Constants, Repository}
+import org.eclipse.jgit.lib.{ Constants, Repository }
 import org.eclipse.jgit.revwalk.DepthWalk.RevWalk
 import org.eclipse.jgit.treewalk.TreeWalk
 import org.eclipse.jgit.treewalk.filter.PathFilter
 
 import scala.collection.JavaConverters._
 
-object JGitUtil {
+trait GitUtil {
+  def initRepository(account: String, name: String)
+
+  def openRepository(account: String, name: String): Git
+
+  def getRepositorySummary(repository: Repository): RepositorySummary
+
+  def getAllCommits(repository: Repository): Seq[Commit]
+
+  def listBranches(repository: Repository): Seq[Branch]
+
+  def isRepositoryClean(repository: Repository): Boolean
+
+  def listDirectory(repository: Repository): Seq[GitDirectoryItem]
+
+  def listDirectory(repository: Repository, path: String): Seq[GitDirectoryItem]
+
+  def getReadmeContents(repository: Repository): Option[String]
+
+  def getFileContents(repository: Repository, filePath: String): Option[String]
+}
+
+object JGitUtil extends GitUtil {
 
   def initRepository(account: String, name: String) = {
     val git = Git.init().setDirectory(repositoryDir(account, name)).call()

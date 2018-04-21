@@ -7,6 +7,7 @@ import mvanbrummen.gitforge.core.auth.{ AccountRepository, AccountService }
 import mvanbrummen.gitforge.core.repository.{ RepositoryRepository, RepositoryService }
 import mvanbrummen.gitforge.http.HttpRoutes
 import mvanbrummen.gitforge.utils.database.{ DatabaseConnection, DatabaseMigration }
+import mvanbrummen.gitforge.utils.git.JGitUtil
 import mvanbrummen.gitforge.utils.{ Config, FileUtil }
 
 import scala.concurrent.Await
@@ -37,7 +38,7 @@ object Boot extends App {
     val repositoryRepository = new RepositoryRepository(databaseConnector)
 
     val accountSevice = new AccountService(accountRepository, config.jwt.secret)
-    val repositoryService = new RepositoryService(repositoryRepository)
+    val repositoryService = new RepositoryService(repositoryRepository, JGitUtil)
     val httpRoutes = new HttpRoutes(repositoryService, accountSevice, config.jwt.secret)
 
     FileUtil.homeDir

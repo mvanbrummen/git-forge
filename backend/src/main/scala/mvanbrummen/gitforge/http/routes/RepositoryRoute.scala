@@ -11,9 +11,9 @@ import mvanbrummen.gitforge.utils.SecurityDirectives
 import scala.concurrent.ExecutionContext
 
 class RepositoryRoute(
-                       repositoryService: RepositoryService,
-                       secretKey: String
-                     )(implicit ec: ExecutionContext) {
+    repositoryService: RepositoryService,
+    secretKey: String
+)(implicit ec: ExecutionContext) {
 
   import SecurityDirectives._
 
