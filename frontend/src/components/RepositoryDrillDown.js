@@ -11,7 +11,9 @@ class RepositoryDrillDown extends Component {
     constructor(props) {
         super(props);
 
-        this.props.location.state = { displayFile: false };
+        if (this.props.location.state === undefined) {
+            this.props.location.state = { displayFile: false };
+        }
 
         this.state = {
             items: [],
