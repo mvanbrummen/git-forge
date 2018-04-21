@@ -57,6 +57,7 @@ lazy val backend = project
 
       // ssh
       "org.apache.sshd" % "sshd-core" % "1.7.0",
+      "org.apache.sshd" % "sshd-git" % "1.7.0",
 
       // test
       "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
