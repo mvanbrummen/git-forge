@@ -43,15 +43,20 @@ lazy val backend = project
       // config
       "com.github.pureconfig" %% "pureconfig" % "0.9.1",
 
+      // logging
+      "ch.qos.logback" % "logback-classic" % "1.2.3",
+
       // database
       "org.postgresql" % "postgresql" % "42.1.4",
 
       "com.typesafe.slick" %% "slick" % "3.2.0",
-      "org.slf4j" % "slf4j-nop" % "1.6.4",
       "com.zaxxer" % "HikariCP" % "2.7.0",
 
       // database migrations
       "org.flywaydb" % "flyway-core" % "5.0.7",
+
+      // ssh
+      "org.apache.sshd" % "sshd-core" % "1.7.0",
 
       // test
       "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
