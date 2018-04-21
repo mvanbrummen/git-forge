@@ -14,7 +14,7 @@ trait GitUtil {
 
   def openRepository(account: String, name: String): Git
 
-  def getRepositorySummary(repository: Repository): RepositorySummary
+  def getRepositorySummary(repository: Repository): GitRepositorySummary
 
   def getAllCommits(repository: Repository): Seq[Commit]
 
@@ -41,7 +41,7 @@ object JGitUtil extends GitUtil {
 
   def openRepository(account: String, name: String): Git = Git.open(gitDir(account, name))
 
-  def getRepositorySummary(repository: Repository): RepositorySummary = {
+  def getRepositorySummary(repository: Repository): GitRepositorySummary = {
     val isClean = isRepositoryClean(repository)
     val dirContents = listDirectory(repository)
     val commits = getAllCommits(repository)
@@ -50,7 +50,7 @@ object JGitUtil extends GitUtil {
     val branches = listBranches(repository)
     val readme = getReadmeContents(repository)
 
-    RepositorySummary(isClean, branches, totalCommits, lastCommit, dirContents, readme)
+    GitRepositorySummary(isClean, branches, totalCommits, lastCommit, dirContents, readme)
   }
 
   def getAllCommits(repository: Repository): Seq[Commit] = {

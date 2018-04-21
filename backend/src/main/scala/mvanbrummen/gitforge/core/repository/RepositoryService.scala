@@ -2,10 +2,11 @@ package mvanbrummen.gitforge.core.repository
 
 import java.util.UUID
 
-import mvanbrummen.gitforge.core.{ AccountUUID, Repository }
-import mvanbrummen.gitforge.utils.git.{ GitDirectoryItem, GitUtil, JGitUtil, RepositorySummary }
+import mvanbrummen.gitforge.core.{AccountUUID, Repository, RepositorySummary}
+import mvanbrummen.gitforge.utils.git.{GitDirectoryItem, GitUtil, JGitUtil}
+import org.eclipse.jgit.errors.RepositoryNotFoundException
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: GitUtil)(implicit ec: ExecutionContext) {
 
@@ -14,10 +15,12 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
   }
 
   def getRepositorySummary(account: String, name: String): Future[RepositorySummary] = {
-    Future {
-      val git = JGitUtil.openRepository(account, name)
+    val git = JGitUtil.openRepository(account, name)
+    val gitSummary = gitUtil.getRepositorySummary(git.getRepository)
 
-      gitUtil.getRepositorySummary(git.getRepository)
+    repositoryRepository.find(account, name).map {
+      case Some(repo) => RepositorySummary(repo.description, gitSummary)
+      case None => throw new RepositoryNotFoundException(s"Could not find repo: /$account/$name")
     }
   }
 

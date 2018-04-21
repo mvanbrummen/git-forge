@@ -11,6 +11,7 @@ class Repository extends Component {
 
         this.state = {
             repoSummary: {
+                description: '',
                 totalCommits: null,
                 lastCommit: [],
                 branches: [],
@@ -100,11 +101,13 @@ class Repository extends Component {
                             </ul>
                         </div>
 
-                        <div className="notification">
-                            <h4 className="subtitle is-size-6">
-                                A quick and easy online tool to validate JSON against an Avro schema. Built in Akka HTTP and ReactJS.
-                    </h4>
-                        </div>
+                        {repoSummary.description !== '' &&
+                            <div className="notification">
+                                <h4 className="subtitle is-size-6">
+                                    {repoSummary.description}
+                                </h4>
+                            </div>
+                        }
 
                         {repoSummary.isClean &&
                             <div>
