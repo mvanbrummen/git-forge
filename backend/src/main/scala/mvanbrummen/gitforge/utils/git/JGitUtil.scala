@@ -132,6 +132,8 @@ object JGitUtil extends GitUtil {
   }
 
   def getReadmeContents(repository: Repository): Option[String] = {
+    if (isRepositoryClean(repository)) return None
+
     val ref = repository.getRef(Constants.HEAD)
     val revWalk = new RevWalk(repository, 1)
     val commit = revWalk.parseCommit(ref.getObjectId)
