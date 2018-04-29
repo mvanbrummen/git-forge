@@ -2,11 +2,11 @@ package mvanbrummen.gitforge.core.repository
 
 import java.util.UUID
 
-import mvanbrummen.gitforge.core.{AccountUUID, Repository, RepositorySummary}
-import mvanbrummen.gitforge.utils.git.{GitDirectoryItem, GitUtil, JGitUtil}
+import mvanbrummen.gitforge.core.{ AccountUUID, Repository, RepositorySummary }
+import mvanbrummen.gitforge.utils.git.{ GitDirectoryItem, GitUtil, JGitUtil }
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: GitUtil)(implicit ec: ExecutionContext) {
 

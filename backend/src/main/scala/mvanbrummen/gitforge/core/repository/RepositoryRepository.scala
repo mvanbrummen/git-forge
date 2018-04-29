@@ -4,7 +4,7 @@ import mvanbrummen.gitforge.core.Repository
 import mvanbrummen.gitforge.core.auth.AccountTable
 import mvanbrummen.gitforge.utils.database.DatabaseConnection
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 class RepositoryRepository(val databaseConnection: DatabaseConnection)(implicit ec: ExecutionContext) extends RepositoryTable with AccountTable {
 
@@ -23,10 +23,10 @@ class RepositoryRepository(val databaseConnection: DatabaseConnection)(implicit 
   def find(name: String, repoName: String): Future[Option[Repository]] = {
     db.run(
       (for {
-        u <- accounts.filter(_.username === name)
-        r <- repositories.filter(r => r.accountId === u.id && r.name === repoName)
-      } yield r)
-        .result.headOption
+      u <- accounts.filter(_.username === name)
+      r <- repositories.filter(r => r.accountId === u.id && r.name === repoName)
+    } yield r)
+      .result.headOption
     )
   }
 

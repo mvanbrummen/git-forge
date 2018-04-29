@@ -3,13 +3,13 @@ package mvanbrummen.gitforge
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
-import mvanbrummen.gitforge.core.auth.{AccountRepository, AccountService}
-import mvanbrummen.gitforge.core.repository.{RepositoryRepository, RepositoryService}
+import mvanbrummen.gitforge.core.auth.{ AccountRepository, AccountService }
+import mvanbrummen.gitforge.core.repository.{ RepositoryRepository, RepositoryService }
 import mvanbrummen.gitforge.http.HttpRoutes
 import mvanbrummen.gitforge.ssh.SshServer
-import mvanbrummen.gitforge.utils.database.{DatabaseConnection, DatabaseMigration}
+import mvanbrummen.gitforge.utils.database.{ DatabaseConnection, DatabaseMigration }
 import mvanbrummen.gitforge.utils.git.JGitUtil
-import mvanbrummen.gitforge.utils.{Config, FileUtil}
+import mvanbrummen.gitforge.utils.{ Config, FileUtil }
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.Await

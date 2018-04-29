@@ -2,7 +2,7 @@ package mvanbrummen.gitforge
 
 import java.util.UUID
 
-import mvanbrummen.gitforge.utils.git.{Branch, Commit, GitDirectoryItem, GitRepositorySummary}
+import mvanbrummen.gitforge.utils.git.{ Branch, Commit, GitDirectoryItem, GitRepositorySummary }
 
 package object core {
 
@@ -21,14 +21,14 @@ package object core {
   final case class Account(id: AccountUUID, username: String, emailAddress: String, password: String)
 
   final case class RepositorySummary(
-                                      description: Option[String],
-                                      isClean: Boolean,
-                                      branches: Seq[Branch],
-                                      totalCommits: Int,
-                                      lastCommit: Option[Commit],
-                                      items: Seq[GitDirectoryItem],
-                                      readme: Option[String]
-                                    )
+    description: Option[String],
+    isClean: Boolean,
+    branches: Seq[Branch],
+    totalCommits: Int,
+    lastCommit: Option[Commit],
+    items: Seq[GitDirectoryItem],
+    readme: Option[String]
+  )
 
   object RepositorySummary {
     def apply(description: Option[String], gitSummary: GitRepositorySummary): RepositorySummary = {

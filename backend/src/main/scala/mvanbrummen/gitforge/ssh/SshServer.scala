@@ -8,7 +8,6 @@ import org.apache.sshd.server.keyprovider.SimpleGeneratorHostKeyProvider
 import org.apache.sshd.server.session.ServerSession
 import org.slf4j.LoggerFactory
 
-
 class SshServer(port: Int = 22, rootDir: String) {
   private val logger = LoggerFactory.getLogger(classOf[SshServer])
 
@@ -19,7 +18,8 @@ class SshServer(port: Int = 22, rootDir: String) {
     sshd.setPort(port)
     sshd.setPublickeyAuthenticator((username: String, key: PublicKey, session: ServerSession) => true) // TODO implement
     sshd.setKeyPairProvider(new SimpleGeneratorHostKeyProvider(
-      new File(getClass.getResource("/id_rsa").getPath)) // TODO set actual key
+      new File(getClass.getResource("/id_rsa").getPath)
+    ) // TODO set actual key
     )
 
     sshd.setCommandFactory(new GitPackCommandFactory(rootDir))
