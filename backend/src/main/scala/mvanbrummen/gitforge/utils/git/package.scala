@@ -19,7 +19,8 @@ package object git {
     commitHash: String,
     committerName: String,
     message: String,
-    commitTime: Int
+    commitTime: Int,
+    parents: Seq[String]
   )
 
 }

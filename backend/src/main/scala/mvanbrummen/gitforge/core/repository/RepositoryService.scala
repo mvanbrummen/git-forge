@@ -41,9 +41,9 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
     gitUtil.getFileContents(git.getRepository, path)
   }
 
-  def getAllCommits(account: String, name: String, branch: String): Future[Seq[Commit]] = Future {
+  def getAllCommitsByRef(account: String, name: String, ref: String): Future[Seq[Commit]] = Future {
     val git = gitUtil.openRepository(account, name)
 
-    gitUtil.getAllCommits(git.getRepository)
+    gitUtil.getAllCommitsByRef(git.getRepository, ref)
   }
 }

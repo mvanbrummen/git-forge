@@ -55,7 +55,7 @@ class RepositoryRoute(
                 } ~
                 path("commits" / Segment) { branch =>
                   get {
-                    onComplete(repositoryService.getAllCommits(account, name, branch)) { contents =>
+                    onComplete(repositoryService.getAllCommitsByRef(account, name, branch)) { contents =>
                       complete(contents)
                     }
                   }

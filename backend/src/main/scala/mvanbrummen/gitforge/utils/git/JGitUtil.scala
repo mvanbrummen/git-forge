@@ -18,6 +18,8 @@ trait GitUtil {
 
   def getAllCommits(repository: Repository): Seq[Commit]
 
+  def getAllCommitsByRef(repository: Repository, ref: String): Seq[Commit]
+
   def listBranches(repository: Repository): Seq[Branch]
 
   def isRepositoryClean(repository: Repository): Boolean
@@ -64,7 +66,27 @@ object JGitUtil extends GitUtil {
         c.getName,
         c.getCommitterIdent.getName,
         c.getShortMessage,
-        c.getCommitTime
+        c.getCommitTime,
+        c.getParents.map(_.getName)
+      ))
+      .toSeq
+  }
+
+  def getAllCommitsByRef(repository: Repository, ref: String): Seq[Commit] = {
+    if (isRepositoryClean(repository)) return Seq.empty
+
+    val branchName = s"refs/heads/$ref"
+
+    val git = new Git(repository)
+    val revCommits = git.log().add(repository.resolve(branchName)).call()
+
+    revCommits.asScala
+      .map(c => Commit(
+        c.getName,
+        c.getCommitterIdent.getName,
+        c.getShortMessage,
+        c.getCommitTime,
+        c.getParents.map(_.getName)
       ))
       .toSeq
   }
