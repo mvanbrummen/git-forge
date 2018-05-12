@@ -51,28 +51,40 @@ class Repository extends Component {
                                 </nav>
                             </div>
                             <div className="column">
-                                <div className="level">
+                                <div className="level is-pulled-right repo-controls">
                                     <div className="level-item">
                                         <div className="field has-addons">
                                             <p className="control">
-                                                <button className="button">
-                                                    <i className="fa fa-star"></i>
+                                                <button className="button is-small">
+                                                    <i className="fa fa-bell"></i>&nbsp; Watch
                                                 </button>
                                             </p>
                                             <p className="control">
-                                                <input className="input" type="text" value="890" readonly />
+                                                <input className="input is-small repo-input" type="text" value="2" readonly/>
                                             </p>
                                         </div>
                                     </div>
                                     <div className="level-item">
                                         <div className="field has-addons">
                                             <p className="control">
-                                                <button className="button">
-                                                    <i className="fa fa-code-fork"></i>
+                                                <button className="button is-small">
+                                                    <i className="fa fa-star"></i>&nbsp;Star
                                                 </button>
                                             </p>
                                             <p className="control">
-                                                <input className="input" type="text" value="2" readonly />
+                                                <input className="input is-small repo-input" type="text" value="890" readonly />
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="level-item">
+                                        <div className="field has-addons">
+                                            <p className="control">
+                                                <button className="button is-small">
+                                                    <i className="fa fa-code-fork"></i>&nbsp; Fork
+                                                </button>
+                                            </p>
+                                            <p className="control">
+                                                <input className="input is-small repo-input" type="text" value="2" readonly />
                                             </p>
                                         </div>
                                     </div>

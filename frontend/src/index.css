@@ -32,3 +32,11 @@ body {
 .code-td {
   padding: 0 !important;
 }
+
+.repo-input {
+  width: 50px !important;
+}
+
+.repo-controls .level-item {
+  padding-right: 10px !important;
+}
