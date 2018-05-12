@@ -48,3 +48,7 @@ body {
 .repo-activity-bar a:hover {
   color: #3273dc !important;
 }
+
+.commit-hash-input {
+  width: 100px;
+}

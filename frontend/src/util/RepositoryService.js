@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { getUserAuth } from './AuthService';
 
-export { getRepositoriesForAccount, getRepositorySummary, createRepository, getItemsByPath, getBlobContentsByPath };
+export {
+    getAllCommitsByRef,
+    getRepositoriesForAccount,
+    getRepositorySummary,
+    createRepository,
+    getItemsByPath,
+    getBlobContentsByPath
+};
 
 const BASE_URL = 'http://localhost:8080';
 
@@ -17,6 +24,11 @@ function getRepositorySummary(account, repoName) {
 
 function getItemsByPath(account, repoName, path) {
     const url = `${BASE_URL}/repository/${account}/${repoName}/blob/${path}`;
+    return axios.get(url).then(resp => resp.data);
+}
+
+function getAllCommitsByRef(account, repoName, ref) {
+    const url = `${BASE_URL}/repository/${account}/${repoName}/commits/${ref}`;
     return axios.get(url).then(resp => resp.data);
 }
 
