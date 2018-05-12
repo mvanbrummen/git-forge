@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/styles/hljs';
 
-import { getItemsByPath, getBlobContentsByPath } from '../util/RepositoryService';
+import { getItemsByPath, getBlobContentsByPath } from '../../util/RepositoryService';
 
 class RepositoryDrillDown extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { createRepository } from '../util/RepositoryService';
-import { getUserAuthObject } from '../util/AuthService';
+import { createRepository } from '../../util/RepositoryService';
+import { getUserAuthObject } from '../../util/AuthService';
 import { Redirect } from 'react-router-dom';
 
 class CreateRepository extends Component {

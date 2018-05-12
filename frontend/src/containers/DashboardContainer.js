@@ -3,9 +3,9 @@ import { getRepositoriesForAccount } from '../util/RepositoryService';
 import { getUserAuthObject, isUserAuthed } from '../util/AuthService'
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
-import Pagination from '../components/Pagination';
-import DashboardTabs from '../components/DashboardTabs';
-import DashboardTable from '../components/DashboardTable';
+import Pagination from '../components/dashboard/Pagination';
+import DashboardTabs from '../components/dashboard/DashboardTabs';
+import DashboardTable from '../components/dashboard/DashboardTable';
 
 class DashboardContainer extends Component {
 
@@ -37,7 +37,7 @@ class DashboardContainer extends Component {
             <div className="container">
                 <div className="columns">
                     <div className="column is-10 is-offset-1">
-                        
+
                         <DashboardTabs />
 
                         {!reposEmpty &&
@@ -49,7 +49,7 @@ class DashboardContainer extends Component {
                             </div>
                         }
 
-                        <DashboardTable repositories={repositories} account={account}/>
+                        <DashboardTable repositories={repositories} account={account} />
 
                         {repositories.length > 0 &&
                             <hr /> &&
