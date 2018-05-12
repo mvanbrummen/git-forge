@@ -37,6 +37,8 @@ class DashboardContainer extends Component {
             <div className="container">
                 <div className="columns">
                     <div className="column is-10 is-offset-1">
+                        <h3 className="has-text-grey-dark title is-size-5">Repositories</h3>
+                        <hr />
 
                         <DashboardTabs />
 
