@@ -6,12 +6,12 @@ import Nav from './Nav';
 import { Route, Switch } from 'react-router-dom';
 import { loadProgressBar } from 'axios-progress-bar';
 import 'axios-progress-bar/dist/nprogress.css';
-import RepositoryDrillDown from './repository/RepositoryDrillDown';
 import DashboardContainer from '../containers/DashboardContainer';
 import LoginContainer from '../containers/LoginContainer';
 import SignupContainer from '../containers/SignupContainer';
 import RepositoryContainer from '../containers/RepositoryContainer';
 import CreateRepositoryContainer from '../containers/CreateRepositoryContainer';
+import RepositoryDrillDownContainer from '../containers/RepositoryDrillDownContainer';
 
 class App extends Component {
     constructor() {
@@ -32,7 +32,7 @@ class App extends Component {
                     <Route exact path="/repos/new" component={CreateRepositoryContainer} />
 
                     <Route exact path="/repos/:userName/:repoName" component={RepositoryContainer} />
-                    <Route path="/repos/:userName/:repoName/blob/**" component={RepositoryDrillDown} />
+                    <Route path="/repos/:userName/:repoName/blob/**" component={RepositoryDrillDownContainer} />
                 </Switch>
 
             </div>

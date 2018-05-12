@@ -50,7 +50,7 @@ class RepositoryContainer extends Component {
 
                         <div className="columns">
                             <div className="column">
-                                <Breadcrumb username={this.props.match.params.userName} repoName={this.props.match.params.repoName} />
+                                <Breadcrumb userName={this.props.match.params.userName} repoName={this.props.match.params.repoName} />
                             </div>
                             <div className="column">
                                 <RepositoryControls />
@@ -83,7 +83,11 @@ class RepositoryContainer extends Component {
                                     </div>
                                 </nav>
 
-                                <DirectoryTable repoSummary={repoSummary} url={this.props.match.url} />
+                                <DirectoryTable
+                                    items={repoSummary.items}
+                                    lastCommit={repoSummary.lastCommit}
+                                    url={this.props.match.url}
+                                    isRoot={true} />
 
                                 {
                                     (repoSummary.readme !== null && repoSummary.readme !== undefined) &&
