@@ -36,8 +36,7 @@ class RepositoryDrillDownContainer extends Component {
     }
 
     componentDidMount() {
-        const userName = this.props.match.params.userName;
-        const repoName = this.props.match.params.repoName;
+        const { userName, repoName } = this.props.match.params;
         const path = this.props.match.params[0];
 
         this.getItemsByPath(userName, repoName, path)
@@ -47,8 +46,7 @@ class RepositoryDrillDownContainer extends Component {
         const { items } = this.state;
         const breadcrumbs = this.props.match.params[0].split("/");
 
-        const userName = this.props.match.params.userName;
-        const repoName = this.props.match.params.repoName;
+        const { userName, repoName } = this.props.match.params;
         const path = this.props.match.params[0];
         const url = this.props.match.url;
 
