@@ -52,6 +52,13 @@ class RepositoryRoute(
                       complete(contents)
                     }
                   }
+                } ~
+                path("commits" / Segment) { branch =>
+                  get {
+                    onComplete(repositoryService.getAllCommits(account, name, branch)) { contents =>
+                      complete(contents)
+                    }
+                  }
                 }
           } ~
           path(Segment) { username =>
