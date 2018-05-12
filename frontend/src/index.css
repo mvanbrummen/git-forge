@@ -50,5 +50,9 @@ body {
 }
 
 .commit-hash-input {
-  width: 100px;
+  width: 100px !important;
+}
+
+.table-avatar {
+  margin-right: 15px;
 }

@@ -15,6 +15,9 @@ const CommitHistory = ({ commits }) => {
 
                         <tr key={i}>
                             <td>
+                                <figure className="image is-32x32 is-pulled-left table-avatar">
+                                    <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c03d50?d=identicon" alt="avatar.png" />
+                                </figure>
                                 <p><a href="#">{commit.message}</a> </p>
                                 <p> Authored by <span className='has-text-weight-semibold'>{commit.committerName}</span> at {commit.commitTime}</p>
                             </td>
