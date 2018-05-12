@@ -60,7 +60,7 @@ class Repository extends Component {
                                                 </button>
                                             </p>
                                             <p className="control">
-                                                <input className="input is-small repo-input" type="text" value="2" readonly/>
+                                                <input className="input is-small repo-input" type="text" value="2" readonly />
                                             </p>
                                         </div>
                                     </div>
@@ -106,8 +106,8 @@ class Repository extends Component {
                                 </li>
                                 <li>
                                     <a>
-                                        <span className="icon is-small"><i class="fa fa-exclamation-triangle"></i></span>
-                                        <span>Issues</span>
+                                        <span className="icon is-small"><i class="fa fa-cog"></i></span>
+                                        <span>Settings</span>
                                     </a>
                                 </li>
                             </ul>
@@ -171,11 +171,15 @@ class Repository extends Component {
                         {!repoSummary.isClean &&
 
                             <div>
-                                <div className="box" style={{ padding: '0.5rem' }}>
+                                <div className="box repo-activity-bar" style={{ padding: '0.5rem' }}>
                                     <nav class="level">
                                         <div class="level-item has-text-centered">
                                             <div>
-                                                <p class="heading"><i class="fa fa-clock-o" aria-hidden="true"></i> Commits {repoSummary.totalCommits}</p>
+                                                <p class="heading"><i class="fa fa-clock-o" aria-hidden="true"></i>
+
+                                                    <Link to=""> Commits {repoSummary.totalCommits}</Link>
+
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="level-item has-text-centered">
@@ -218,6 +222,31 @@ class Repository extends Component {
                                                         <i class="fa fa-code-fork"></i>
                                                     </span>
                                                 </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="level-item">
+
+                                            <div class="dropdown">
+                                                <div class="dropdown-trigger">
+                                                    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+
+                                                        <span class="icon is-small">
+                                                            <i class="fa fa-plus" aria-hidden="true"></i>
+
+                                                        </span>
+                                                        <span class="icon is-small">
+                                                            <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                                    <div class="dropdown-content">
+                                                        <a href="#" class="dropdown-item">
+                                                            Dropdown item
+      </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
