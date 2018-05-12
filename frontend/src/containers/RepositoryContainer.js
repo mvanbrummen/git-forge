@@ -42,6 +42,7 @@ class RepositoryContainer extends Component {
 
     render() {
         const { repoSummary } = this.state;
+        const currentUrl = this.props.match.url;
 
         return (
             <div className="container">
@@ -70,7 +71,7 @@ class RepositoryContainer extends Component {
                         {!repoSummary.isClean &&
 
                             <div>
-                                <ActivityBar repoSummary={repoSummary} />
+                                <ActivityBar url={currentUrl} repoSummary={repoSummary} />
 
                                 <nav className="level">
                                     <div className="level-left">

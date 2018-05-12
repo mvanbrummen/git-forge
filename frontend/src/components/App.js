@@ -12,6 +12,7 @@ import SignupContainer from '../containers/SignupContainer';
 import RepositoryContainer from '../containers/RepositoryContainer';
 import CreateRepositoryContainer from '../containers/CreateRepositoryContainer';
 import RepositoryDrillDownContainer from '../containers/RepositoryDrillDownContainer';
+import CommitHistoryContainer from '../containers/CommitHistoryContainer';
 
 class App extends Component {
     constructor() {
@@ -33,6 +34,7 @@ class App extends Component {
 
                     <Route exact path="/repos/:userName/:repoName" component={RepositoryContainer} />
                     <Route path="/repos/:userName/:repoName/blob/**" component={RepositoryDrillDownContainer} />
+                    <Route path="/repos/:userName/:repoName/commits" component={CommitHistoryContainer} />
                 </Switch>
 
             </div>
