@@ -23,4 +23,9 @@ package object git {
     parents: Seq[String]
   )
 
+  case class CommitDiff(
+    newPath: String,
+    diff: String
+  )
+
 }

@@ -3,7 +3,7 @@ package mvanbrummen.gitforge.core.repository
 import java.util.UUID
 
 import mvanbrummen.gitforge.core.{ AccountUUID, Repository, RepositorySummary }
-import mvanbrummen.gitforge.utils.git.{ Commit, GitDirectoryItem, GitUtil, JGitUtil }
+import mvanbrummen.gitforge.utils.git._
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 
 import scala.concurrent.{ ExecutionContext, Future }
@@ -45,5 +45,11 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
     val git = gitUtil.openRepository(account, name)
 
     gitUtil.getAllCommitsByRef(git.getRepository, ref)
+  }
+
+  def diffCommits(account: String, name: String, oldSha: String, newSha: String): Future[Seq[CommitDiff]] = Future {
+    val git = gitUtil.openRepository(account, name)
+
+    gitUtil.diffCommits(git.getRepository, oldSha, newSha)
   }
 }

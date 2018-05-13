@@ -59,6 +59,15 @@ class RepositoryRoute(
                       complete(contents)
                     }
                   }
+                } ~
+                path("diff") {
+                  parameters('oldSha, 'newSha) { (oldSha, newSha) =>
+                    get {
+                      onComplete(repositoryService.diffCommits(account, name, oldSha, newSha)) { diffs =>
+                        complete(diffs)
+                      }
+                    }
+                  }
                 }
           } ~
           path(Segment) { username =>

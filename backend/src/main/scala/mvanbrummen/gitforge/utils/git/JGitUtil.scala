@@ -1,11 +1,14 @@
 package mvanbrummen.gitforge.utils.git
 
+import java.io.ByteArrayOutputStream
+
 import mvanbrummen.gitforge.utils.FileUtil._
 import org.eclipse.jgit.api.Git
-import org.eclipse.jgit.lib.{ Constants, Repository }
+import org.eclipse.jgit.diff.DiffFormatter
+import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
 import org.eclipse.jgit.revwalk.DepthWalk.RevWalk
-import org.eclipse.jgit.treewalk.TreeWalk
 import org.eclipse.jgit.treewalk.filter.PathFilter
+import org.eclipse.jgit.treewalk.{AbstractTreeIterator, CanonicalTreeParser, TreeWalk}
 
 import scala.collection.JavaConverters._
 
@@ -31,6 +34,8 @@ trait GitUtil {
   def getReadmeContents(repository: Repository): Option[String]
 
   def getFileContents(repository: Repository, filePath: String): Option[String]
+
+  def diffCommits(repository: Repository, oldSha: String, newSha: String): Seq[CommitDiff]
 }
 
 object JGitUtil extends GitUtil {
@@ -70,6 +75,26 @@ object JGitUtil extends GitUtil {
         c.getParents.map(_.getName)
       ))
       .toSeq
+  }
+
+  def diffCommits(repository: Repository, oldSha: String, newSha: String): Seq[CommitDiff] = {
+    val oldTreeParser = prepareTreeParser(repository, oldSha)
+    val newTreeParser = prepareTreeParser(repository, newSha)
+
+    val git = new Git(repository)
+
+    val out = new ByteArrayOutputStream()
+    val df = new DiffFormatter(out)
+    df.setRepository(git.getRepository)
+
+    val diffs = df.scan(oldTreeParser, newTreeParser)
+
+    diffs.asScala
+      .map { d =>
+        df.format(df.toFileHeader(d))
+
+        CommitDiff(d.getNewPath, out.toString())
+      }
   }
 
   def getAllCommitsByRef(repository: Repository, ref: String): Seq[Commit] = {
@@ -201,5 +226,20 @@ object JGitUtil extends GitUtil {
       }
 
     contents
+  }
+
+  private def prepareTreeParser(repository: Repository, objectId: String): AbstractTreeIterator = {
+    val walk = new RevWalk(repository, 1)
+
+    val commit = walk.parseCommit(ObjectId.fromString(objectId))
+    val tree = walk.parseTree(commit.getTree.getId)
+
+    val treeParser = new CanonicalTreeParser()
+    val reader = repository.newObjectReader()
+    treeParser.reset(reader, tree.getId)
+
+    walk.dispose()
+
+    treeParser
   }
 }
