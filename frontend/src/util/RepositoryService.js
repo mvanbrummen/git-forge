@@ -7,7 +7,8 @@ export {
     getRepositorySummary,
     createRepository,
     getItemsByPath,
-    getBlobContentsByPath
+    getBlobContentsByPath,
+    getCommitDiffs
 };
 
 const BASE_URL = 'http://localhost:8080';
@@ -50,4 +51,10 @@ function createRepository(repoName, description) {
             }
         }).then(resp => resp.data)
         .catch(e => alert(e));
+}
+
+function getCommitDiffs(account, repoName, oldSha, newSha) {
+    const url = `${BASE_URL}/repository/${account}/${repoName}/diff`;
+    const queryString = `?oldSha=${oldSha}&newSha=${newSha}`;
+    return axios.get(url + queryString).then(resp => resp.data);
 }
