@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { getCommitDiffs } from '../util/RepositoryService';
 
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/styles/hljs';
+import CommitDiff from '../components/commits/CommitDiff';
+import Breadcrumb from '../components/repository/Breadcrumb';
+import BranchDropdown from '../components/repository/BranchDropdown';
 
 class CommitDiffContainer extends Component {
     state = {
@@ -23,18 +24,22 @@ class CommitDiffContainer extends Component {
     }
 
     render() {
+        const { newSha } = this.props.match.params;
         return (
             <div className="container" >
                 <div className="columns">
                     <div className="column is-10 is-offset-1">
-                        {
-                            this.state.commitDiffs.map((diff, i) =>
-                                <div key={i}>
-                                    <h1>{diff.newPath}</h1>
-                                    <SyntaxHighlighter showLineNumbers={false} language='javascript' style={docco}>{diff.diff}</SyntaxHighlighter>
-                                </div>
-                            )
-                        }
+                        <Breadcrumb userName={this.props.match.params.userName}
+                            repoName={this.props.match.params.repoName}
+                            breadcrumbs={['commits', newSha.substring(0, 8)]} />
+                        <hr />
+
+                        <div className="level">
+                            <div className="level-left">
+                                <BranchDropdown branches={[{ name: 'master', refId: 'ref/heads/master' }]} />
+                            </div>
+                        </div>
+                        <CommitDiff commitDiffs={this.state.commitDiffs} />
                     </div>
                 </div>
             </div>
