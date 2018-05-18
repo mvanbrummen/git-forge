@@ -15,18 +15,15 @@ import DirectoryTable from '../components/repository/DirectoryTable';
 import ReadmeTable from '../components/repository/ReadmeTable';
 
 class RepositoryContainer extends Component {
-    constructor(props) {
-        super();
 
-        this.state = {
-            repoSummary: {
-                description: '',
-                totalCommits: null,
-                lastCommit: [],
-                branches: [],
-                items: [],
-                readme: null
-            }
+    state = {
+        repoSummary: {
+            description: '',
+            totalCommits: null,
+            lastCommit: [],
+            branches: [],
+            items: [],
+            readme: null
         }
     }
 

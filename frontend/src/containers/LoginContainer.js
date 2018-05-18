@@ -5,14 +5,10 @@ import LoginForm from '../components/LoginForm';
 
 class LoginContainer extends Component {
 
-    constructor() {
-        super();
-
-        this.state = {
-            username: '',
-            password: '',
-            authed: false
-        };
+    state = {
+        username: '',
+        password: '',
+        authed: false
     }
 
     handleUsernameChange = (e) => {

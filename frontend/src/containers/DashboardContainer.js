@@ -9,14 +9,10 @@ import DashboardTable from '../components/dashboard/DashboardTable';
 
 class DashboardContainer extends Component {
 
-    constructor(props) {
-        super();
-
-        this.state = {
-            repositories: [],
-            reposEmpty: false,
-            account: isUserAuthed() ? getUserAuthObject().username : 'mvanbrummen'
-        };
+    state = {
+        repositories: [],
+        reposEmpty: false,
+        account: isUserAuthed() ? getUserAuthObject().username : 'mvanbrummen'
     }
 
     getRepositories() {

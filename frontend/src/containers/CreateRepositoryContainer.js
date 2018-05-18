@@ -6,14 +6,10 @@ import CreateRepositoryForm from '../components/repository/CreateRepositoryForm'
 
 class CreateRepositoryContainer extends Component {
 
-    constructor(props) {
-        super();
-
-        this.state = {
-            repoName: '',
-            repoDescription: '',
-            created: false
-        };
+    state = {
+        repoName: '',
+        repoDescription: '',
+        created: false
     }
 
     handleChange = ({ target }) => {
