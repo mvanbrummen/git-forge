@@ -5,7 +5,7 @@ const DirectoryTable = ({ items, lastCommit, url, isRoot = false }) => {
     const pathInfix = isRoot ? '/blob/' : '/';
 
     return (
-        <table className="table is-fullwidth">
+        <table className="table is-fullwidth table-hoverable">
             <thead>
                 <tr>
                     <th>
@@ -26,8 +26,8 @@ const DirectoryTable = ({ items, lastCommit, url, isRoot = false }) => {
                                 <i class={f.isDir ? "fa fa-folder" : "fa fa-file-code-o"}></i>
                                 <Link to={{ pathname: url + pathInfix + f.path, state: { displayFile: !f.isDir } }}> {f.path}</Link>
                             </td>
-                            <td>init commit</td>
-                            <td className="has-text-right is-size-7">2 years ago</td>
+                            <td className="has-text-right has-text-grey">init commit</td>
+                            <td className="has-text-right has-text-grey">2 years ago</td>
                         </tr>
                     )
                 }
