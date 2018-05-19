@@ -25,6 +25,8 @@ trait GitUtil {
 
   def listBranches(repository: Repository): Seq[Branch]
 
+  def listTags(repository: Repository): Seq[Tag]
+
   def isRepositoryClean(repository: Repository): Boolean
 
   def listDirectory(repository: Repository): Seq[GitDirectoryItem]
@@ -55,9 +57,10 @@ object JGitUtil extends GitUtil {
     val totalCommits = commits.size
     val lastCommit = commits.headOption
     val branches = listBranches(repository)
+    val tags = listTags(repository)
     val readme = getReadmeContents(repository)
 
-    GitRepositorySummary(isClean, branches, totalCommits, lastCommit, dirContents, readme)
+    GitRepositorySummary(isClean, branches, tags, totalCommits, lastCommit, dirContents, readme)
   }
 
   def getAllCommits(repository: Repository): Seq[Commit] = {
@@ -122,6 +125,14 @@ object JGitUtil extends GitUtil {
 
     branchRefs.asScala
       .map(b => Branch(b.getName, b.getName.replace("refs/heads/", ""), b.getObjectId.getName))
+  }
+
+  def listTags(repository: Repository): Seq[Tag] = {
+    val git = new Git(repository)
+    val tagRefs = git.tagList().call()
+
+    tagRefs.asScala
+      .map(t => Tag(t.getName, t.getName.replace("refs/tags/", ""), t.getObjectId.getName))
   }
 
   def isRepositoryClean(repository: Repository): Boolean = repository.getAllRefs.isEmpty

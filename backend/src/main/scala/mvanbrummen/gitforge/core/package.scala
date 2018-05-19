@@ -2,7 +2,7 @@ package mvanbrummen.gitforge
 
 import java.util.UUID
 
-import mvanbrummen.gitforge.utils.git.{ Branch, Commit, GitDirectoryItem, GitRepositorySummary }
+import mvanbrummen.gitforge.utils.git._
 
 package object core {
 
@@ -24,6 +24,7 @@ package object core {
     description: Option[String],
     isClean: Boolean,
     branches: Seq[Branch],
+    tags: Seq[Tag],
     totalCommits: Int,
     lastCommit: Option[Commit],
     items: Seq[GitDirectoryItem],
@@ -38,6 +39,7 @@ package object core {
         description,
         isClean,
         branches,
+        tags,
         totalCommits,
         lastCommit,
         items,

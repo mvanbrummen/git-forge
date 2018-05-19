@@ -5,6 +5,7 @@ package object git {
   case class GitRepositorySummary(
     isClean: Boolean,
     branches: Seq[Branch],
+    tags: Seq[Tag],
     totalCommits: Int,
     lastCommit: Option[Commit],
     items: Seq[GitDirectoryItem],
@@ -14,6 +15,7 @@ package object git {
   case class GitDirectoryItem(isDir: Boolean, path: String)
 
   case class Branch(fullName: String, name: String, refId: String)
+  case class Tag(fullName: String, name: String, refId: String)
 
   case class Commit(
     commitHash: String,

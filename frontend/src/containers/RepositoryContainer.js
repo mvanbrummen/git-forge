@@ -72,7 +72,9 @@ class RepositoryContainer extends Component {
 
                                 <nav className="level">
                                     <div className="level-left">
-                                        <BranchDropdown branches={repoSummary.branches} tags={[]} currentBranch={'master'}/>
+                                        <BranchDropdown branches={repoSummary.branches}
+                                            tags={repoSummary.tags}
+                                            currentBranch={'master'} />
                                         <CreateButton />
                                     </div>
 
