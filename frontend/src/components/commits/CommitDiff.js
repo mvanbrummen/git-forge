@@ -6,7 +6,7 @@ const CommitDiff = (props) => (
     <div>
         {
             props.commitDiffs.map((diff, i) =>
-                <table key={i}>
+                <table className="table is-fullwidth is-bordered" key={i}>
                     <thead>
                         <tr>
                             <th>
@@ -17,10 +17,12 @@ const CommitDiff = (props) => (
                     </thead>
                     <tbody >
                         <tr>
-                            <td>
-                                <SyntaxHighlighter showLineNumbers={false}
-                                    language='javascript'
-                                    style={docco}>{diff.diff}</SyntaxHighlighter>
+                            <td className="code-td">
+                                <div className="content">
+                                    <SyntaxHighlighter showLineNumbers={false}
+                                        language='javascript'
+                                        style={docco}>{diff.diff}</SyntaxHighlighter>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
