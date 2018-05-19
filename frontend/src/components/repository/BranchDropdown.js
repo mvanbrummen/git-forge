@@ -111,7 +111,7 @@ class BranchDropdown extends Component {
                                     )
                                 }
 
-                                {tags && tags.length !== 0 &&
+                                {tags.length !== 0 &&
                                     <div>
                                         <hr className="dropdown-divider" />
                                         <h3 className="has-text-grey-dark title is-size-7 dropdown-subtitle">Tags</h3>
