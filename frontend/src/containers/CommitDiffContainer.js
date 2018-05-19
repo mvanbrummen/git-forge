@@ -36,7 +36,8 @@ class CommitDiffContainer extends Component {
 
                         <div className="level">
                             <div className="level-left">
-                                <BranchDropdown branches={[{ name: 'master', refId: 'ref/heads/master' }]} />
+                                <BranchDropdown branches={[{ name: 'master', refId: 'ref/heads/master' }]}
+                                    tags={[]} currentBranch={'master'} />
                             </div>
                         </div>
                         <CommitDiff commitDiffs={this.state.commitDiffs} />
