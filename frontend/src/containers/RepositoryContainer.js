@@ -13,6 +13,7 @@ import CreateButton from '../components/repository/CreateButton';
 import DownloadDropdown from '../components/repository/DownloadDropdown';
 import DirectoryTable from '../components/repository/DirectoryTable';
 import ReadmeTable from '../components/repository/ReadmeTable';
+import DownloadButton from '../components/repository/DownloadButton';
 
 class RepositoryContainer extends Component {
 
@@ -79,6 +80,7 @@ class RepositoryContainer extends Component {
                                     </div>
 
                                     <div className="level-right">
+                                        <DownloadButton />
                                         <DownloadDropdown />
                                     </div>
                                 </nav>
