@@ -2,11 +2,11 @@ package mvanbrummen.gitforge.core.repository
 
 import java.util.UUID
 
-import mvanbrummen.gitforge.core.{ AccountUUID, Repository, RepositorySummary }
+import mvanbrummen.gitforge.core.{AccountUUID, Repository, RepositorySummary}
 import mvanbrummen.gitforge.utils.git._
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 
 class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: GitUtil)(implicit ec: ExecutionContext) {
 
@@ -51,5 +51,14 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
     val git = gitUtil.openRepository(account, name)
 
     gitUtil.diffCommits(git.getRepository, oldSha, newSha)
+  }
+
+  def getRefs(account: String, name: String): Future[Refs] = Future {
+    val git = gitUtil.openRepository(account, name)
+
+    val branches = gitUtil.listBranches(git.getRepository)
+    val tags = gitUtil.listTags(git.getRepository)
+
+    Refs(branches, tags)
   }
 }

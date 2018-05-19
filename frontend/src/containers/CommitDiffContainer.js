@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getCommitDiffs } from '../util/RepositoryService';
+import { getCommitDiffs, getRefs } from '../util/RepositoryService';
 
 import CommitDiff from '../components/commits/CommitDiff';
 import Breadcrumb from '../components/repository/Breadcrumb';
@@ -7,7 +7,8 @@ import BranchDropdown from '../components/repository/BranchDropdown';
 
 class CommitDiffContainer extends Component {
     state = {
-        commitDiffs: []
+        commitDiffs: [],
+        refs: []
     }
 
     getCommitDiffs(userName, repoName, oldSha, newSha) {
@@ -18,13 +19,24 @@ class CommitDiffContainer extends Component {
         )
     }
 
+    getRefs(userName, repoName) {
+        getRefs(userName, repoName).then((refs) => {
+            this.setState({
+                refs: refs
+            })
+        });
+    }
+
     componentDidMount() {
         const { userName, repoName, oldSha, newSha } = this.props.match.params;
         this.getCommitDiffs(userName, repoName, oldSha, newSha);
+        this.getRefs(userName, repoName);
     }
 
     render() {
         const { newSha } = this.props.match.params;
+        const { refs, commitDiffs } = this.state;
+
         return (
             <div className="container" >
                 <div className="columns">
@@ -36,11 +48,13 @@ class CommitDiffContainer extends Component {
 
                         <div className="level">
                             <div className="level-left">
-                                <BranchDropdown branches={[{ name: 'master', refId: 'ref/heads/master' }]}
-                                    tags={[]} currentBranch={'master'} />
+                                <BranchDropdown
+                                    branches={refs.branches}
+                                    tags={refs.tags}
+                                    currentBranch={'master'} />
                             </div>
                         </div>
-                        <CommitDiff commitDiffs={this.state.commitDiffs} />
+                        <CommitDiff commitDiffs={commitDiffs} />
                     </div>
                 </div>
             </div>

@@ -11,9 +11,9 @@ import mvanbrummen.gitforge.utils.SecurityDirectives
 import scala.concurrent.ExecutionContext
 
 class RepositoryRoute(
-    repositoryService: RepositoryService,
-    secretKey: String
-)(implicit ec: ExecutionContext) {
+                       repositoryService: RepositoryService,
+                       secretKey: String
+                     )(implicit ec: ExecutionContext) {
 
   import SecurityDirectives._
 
@@ -66,6 +66,13 @@ class RepositoryRoute(
                       onComplete(repositoryService.diffCommits(account, name, oldSha, newSha)) { diffs =>
                         complete(diffs)
                       }
+                    }
+                  }
+                } ~
+                path("refs") {
+                  get {
+                    onComplete(repositoryService.getRefs(account, name)) { refs =>
+                      complete(refs)
                     }
                   }
                 }

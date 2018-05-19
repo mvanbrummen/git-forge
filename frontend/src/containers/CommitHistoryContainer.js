@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Breadcrumb from '../components/repository/Breadcrumb';
-import { getAllCommitsByRef } from '../util/RepositoryService';
+import { getAllCommitsByRef, getRefs } from '../util/RepositoryService';
 import CommitHistory from '../components/commits/CommitHistory';
 import BranchDropdown from '../components/repository/BranchDropdown';
 
@@ -12,7 +12,8 @@ class CommitHistoryContainer extends Component {
 
     state = {
         initialCommits: [],
-        commits: []
+        commits: [],
+        refs: []
     }
 
     filterCommits = (e) => {
@@ -35,11 +36,23 @@ class CommitHistoryContainer extends Component {
         });
     }
 
+    getRefs(userName, repoName) {
+        getRefs(userName, repoName).then((refs) => {
+            this.setState({
+                refs: refs
+            })
+        });
+    }
+
     componentDidMount() {
-        this.getAllCommitsByRef(this.props.match.params.userName, this.props.match.params.repoName, ref);
+        const { userName, repoName } = this.props.match.params;
+        this.getAllCommitsByRef(userName, repoName, ref);
+        this.getRefs(userName, repoName);
     }
 
     render() {
+        const { refs, commits } = this.state; 
+        
         return (
             <div className="container" >
                 <div className="columns">
@@ -51,15 +64,16 @@ class CommitHistoryContainer extends Component {
 
                         <div className="level">
                             <div className="level-left">
-                                <BranchDropdown branches={[{ name: 'master', refId: 'ref/heads/master' }]}
-                                    tags={[]} currentBranch={'master'} />
+                                <BranchDropdown 
+                                branches={refs.branches}
+                                    tags={refs.tags} currentBranch={'master'} />
                                 <input className="input"
                                     type="text"
                                     placeholder="Filter by message..."
                                     onChange={this.filterCommits} />
                             </div>
                         </div>
-                        <CommitHistory commits={this.state.commits} url={this.props.location.pathname} />
+                        <CommitHistory commits={commits} url={this.props.location.pathname} />
                     </div>
                 </div>
             </div>

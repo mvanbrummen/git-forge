@@ -8,7 +8,8 @@ export {
     createRepository,
     getItemsByPath,
     getBlobContentsByPath,
-    getCommitDiffs
+    getCommitDiffs,
+    getRefs
 };
 
 const BASE_URL = 'http://localhost:8080';
@@ -25,6 +26,11 @@ function getRepositorySummary(account, repoName) {
 
 function getItemsByPath(account, repoName, path) {
     const url = `${BASE_URL}/repository/${account}/${repoName}/blob/${path}`;
+    return axios.get(url).then(resp => resp.data);
+}
+
+function getRefs(account, repoName) {
+    const url = `${BASE_URL}/repository/${account}/${repoName}/refs`;
     return axios.get(url).then(resp => resp.data);
 }
 

@@ -14,6 +14,8 @@ package object git {
 
   case class GitDirectoryItem(isDir: Boolean, path: String)
 
+  case class Refs(branches: Seq[Branch], tags: Seq[Tag])
+
   case class Branch(fullName: String, name: String, refId: String)
   case class Tag(fullName: String, name: String, refId: String)
 
