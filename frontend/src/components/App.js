@@ -14,6 +14,7 @@ import CreateRepositoryContainer from '../containers/CreateRepositoryContainer';
 import RepositoryDrillDownContainer from '../containers/RepositoryDrillDownContainer';
 import CommitHistoryContainer from '../containers/CommitHistoryContainer';
 import CommitDiffContainer from '../containers/CommitDiffContainer';
+import BranchContainer from '../containers/BranchContainer';
 
 class App extends Component {
     constructor() {
@@ -37,6 +38,7 @@ class App extends Component {
                     <Route path="/repos/:userName/:repoName/blob/**" component={RepositoryDrillDownContainer} />
                     <Route path="/repos/:userName/:repoName/commits/diff/:oldSha/:newSha" component={CommitDiffContainer} />
                     <Route path="/repos/:userName/:repoName/commits" component={CommitHistoryContainer} />
+                    <Route path="/repos/:userName/:repoName/branches" component={BranchContainer} />
                 </Switch>
 
             </div>

@@ -16,7 +16,10 @@ const ActivityBar = ({ url, repoSummary }) => (
             </div>
             <div class="level-item has-text-centered">
                 <div>
-                    <p class="heading"><i class="fa fa-code-fork" aria-hidden="true"></i> Branches {repoSummary.branches.length}</p>
+                    <p class="heading"><i class="fa fa-code-fork" aria-hidden="true"></i>
+
+                        <Link to={url + '/branches'}> Branches {repoSummary.branches.length}</Link>
+                    </p>
                 </div>
             </div>
             <div class="level-item has-text-centered">
