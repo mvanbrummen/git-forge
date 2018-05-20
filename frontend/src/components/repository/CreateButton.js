@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 
 class CreateButton extends Component {
 
@@ -37,27 +38,27 @@ class CreateButton extends Component {
             <div className="level-item">
 
                 <div className={this.state.isActive ? "is-active dropdown" : "dropdown"}>
-                    <div class="dropdown-trigger">
-                        <button class="button"
+                    <div className="dropdown-trigger">
+                        <button className="button"
                             aria-haspopup="true"
                             aria-controls="dropdown-menu"
                             onClick={this.handleClick}>
 
-                            <span class="icon is-small">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span className="icon is-small">
+                                <i className="fa fa-plus" aria-hidden="true"></i>
 
                             </span>
-                            <span class="icon is-small">
-                                <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            <span className="icon is-small">
+                                <i className="fa fa-angle-down" aria-hidden="true"></i>
                             </span>
                         </button>
                     </div>
-                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                        <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">New Branch</a>
+                    <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div className="dropdown-content">
+                            <Link to={this.props.url + '/branches/new'} className="dropdown-item">New Branch</Link>
                         </div>
-                        <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">New Tag</a>
+                        <div className="dropdown-content">
+                            <a href="#" className="dropdown-item">New Tag</a>
                         </div>
                     </div>
                 </div>

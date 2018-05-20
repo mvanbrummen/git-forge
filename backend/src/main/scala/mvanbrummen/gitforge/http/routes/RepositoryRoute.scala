@@ -1,7 +1,11 @@
 package mvanbrummen.gitforge.http.routes
 
+import java.nio.file.Paths
+
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
+import akka.stream.scaladsl.FileIO
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport._
 import io.circe.generic.auto._
@@ -9,11 +13,14 @@ import mvanbrummen.gitforge.core.repository.RepositoryService
 import mvanbrummen.gitforge.utils.SecurityDirectives
 
 import scala.concurrent.ExecutionContext
+import scala.util.Success
 
 class RepositoryRoute(
                        repositoryService: RepositoryService,
                        secretKey: String
                      )(implicit ec: ExecutionContext) {
+
+  private val CHUNK_SIZE = 100000
 
   import SecurityDirectives._
 
@@ -73,6 +80,16 @@ class RepositoryRoute(
                   get {
                     onComplete(repositoryService.getRefs(account, name)) { refs =>
                       complete(refs)
+                    }
+                  }
+                } ~
+                path(Segment / "zip" / Segment) { case (branch, fileName) =>
+                  get {
+                    onComplete(repositoryService.getZip(account, name, branch, fileName)) {
+                      case Success(zipFilePath) => complete(HttpEntity(ContentTypes.`application/octet-stream`,
+                        FileIO.fromPath(Paths.get(zipFilePath), CHUNK_SIZE)
+                      ))
+                      case _ => complete(StatusCodes.InternalServerError)
                     }
                   }
                 }

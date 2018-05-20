@@ -54,7 +54,9 @@ class DownloadButton extends Component {
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">Download .zip</a>
+                            <a href={this.props.zipFileUrl}
+                                download={this.props.zipFileName}
+                                className="dropdown-item">Download .zip</a>
                         </div>
                         <div class="dropdown-content">
                             <a href="#" class="dropdown-item">Download .tar.gz</a>

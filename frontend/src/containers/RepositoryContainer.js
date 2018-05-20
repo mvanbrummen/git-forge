@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
-import { getRepositorySummary } from '../util/RepositoryService';
+import { getRepositorySummary, getZipFileUrl } from '../util/RepositoryService';
 import Breadcrumb from '../components/repository/Breadcrumb';
 import RepositoryControls from '../components/repository/RepositoryControls';
 import RepositoryTabs from '../components/repository/RepositoryTabs';
@@ -42,6 +42,10 @@ class RepositoryContainer extends Component {
         const { repoSummary } = this.state;
         const currentUrl = this.props.match.url;
 
+        const { userName, repoName } = this.props.match.params;
+        const zipFileName = `${repoName}_master.zip`;
+        const zipFileUrl = getZipFileUrl(userName, repoName, 'master', zipFileName);
+
         return (
             <div className="container">
                 <div className="columns">
@@ -76,11 +80,14 @@ class RepositoryContainer extends Component {
                                         <BranchDropdown branches={repoSummary.branches}
                                             tags={repoSummary.tags}
                                             currentBranch={'master'} />
-                                        <CreateButton />
+                                        <CreateButton url={currentUrl} />
                                     </div>
 
                                     <div className="level-right">
-                                        <DownloadButton />
+                                        <DownloadButton
+                                            zipFileUrl={zipFileUrl}
+                                            zipFileName={zipFileName}
+                                        />
                                         <DownloadDropdown />
                                     </div>
                                 </nav>

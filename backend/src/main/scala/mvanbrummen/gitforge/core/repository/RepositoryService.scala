@@ -1,14 +1,20 @@
 package mvanbrummen.gitforge.core.repository
 
+import java.io.File
+import java.time.Instant
 import java.util.UUID
 
 import mvanbrummen.gitforge.core.{AccountUUID, Repository, RepositorySummary}
+import mvanbrummen.gitforge.utils.FileUtil
 import mvanbrummen.gitforge.utils.git._
 import org.eclipse.jgit.errors.RepositoryNotFoundException
+import org.slf4j.LoggerFactory
+import org.zeroturnaround.zip.ZipUtil
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: GitUtil)(implicit ec: ExecutionContext) {
+  private val logger = LoggerFactory.getLogger(getClass.getName)
 
   def findRepositoriesByAccount(name: String): Future[Seq[Repository]] = {
     repositoryRepository.findAll(name)
@@ -60,5 +66,21 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
     val tags = gitUtil.listTags(git.getRepository)
 
     Refs(branches, tags)
+  }
+
+  def getZip(account: String, name: String, branch: String, fileName: String): Future[String] = Future {
+    logger.debug("Generating zip file: {}", fileName)
+
+    // TODO switch branch
+    val git = gitUtil.openRepository(account, name)
+
+    val unixTimestamp = Instant.now.getEpochSecond
+
+    val source = FileUtil.repositoryDir(account, name)
+    val zipDestination = new File(s"${FileUtil.tmpDir.getAbsolutePath}/${fileName}_$unixTimestamp.zip")
+
+    ZipUtil.pack(source, zipDestination)
+
+    zipDestination.getAbsolutePath
   }
 }

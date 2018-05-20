@@ -5,10 +5,10 @@ import java.io.ByteArrayOutputStream
 import mvanbrummen.gitforge.utils.FileUtil._
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.diff.DiffFormatter
-import org.eclipse.jgit.lib.{Constants, ObjectId, Repository}
+import org.eclipse.jgit.lib.{ Constants, ObjectId, Repository }
 import org.eclipse.jgit.revwalk.DepthWalk.RevWalk
 import org.eclipse.jgit.treewalk.filter.PathFilter
-import org.eclipse.jgit.treewalk.{AbstractTreeIterator, CanonicalTreeParser, TreeWalk}
+import org.eclipse.jgit.treewalk.{ AbstractTreeIterator, CanonicalTreeParser, TreeWalk }
 
 import scala.collection.JavaConverters._
 

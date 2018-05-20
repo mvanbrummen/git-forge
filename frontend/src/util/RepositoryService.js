@@ -9,7 +9,8 @@ export {
     getItemsByPath,
     getBlobContentsByPath,
     getCommitDiffs,
-    getRefs
+    getRefs,
+    getZipFileUrl
 };
 
 const BASE_URL = 'http://localhost:8080';
@@ -63,4 +64,8 @@ function getCommitDiffs(account, repoName, oldSha, newSha) {
     const url = `${BASE_URL}/repository/${account}/${repoName}/diff`;
     const queryString = `?oldSha=${oldSha}&newSha=${newSha}`;
     return axios.get(url + queryString).then(resp => resp.data);
+}
+
+function getZipFileUrl(account, repoName, branch, fileName) {
+    return `${BASE_URL}/repository/${account}/${repoName}/${branch}/zip/${fileName}`;
 }

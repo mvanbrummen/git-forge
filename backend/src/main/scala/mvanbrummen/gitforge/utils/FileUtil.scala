@@ -8,6 +8,8 @@ object FileUtil {
 
   def homeDir: File = createDir(envOrElse("GITFORGE_HOME", ".gitforge"))
 
+  def tmpDir: File = createDir(envOrElse("GITFORGE_TMP", s"${homeDir.getAbsolutePath}/tmp"))
+
   def repositoryDir(account: String, name: String): File = createDir(s"${homeDir.getAbsolutePath}/$account/$name")
 
   def gitDir(account: String, name: String): File = createDir(s"${homeDir.getAbsolutePath}/$account/$name/.git")
