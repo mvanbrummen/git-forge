@@ -68,6 +68,12 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
     Refs(branches, tags)
   }
 
+  def checkout(account: String, name: String, branch: String): Future[String] = Future {
+    val git = gitUtil.openRepository(account, name)
+
+    git.checkout().setName(branch).call().getName
+  }
+
   def getZip(account: String, name: String, fileName: String): Future[String] = Future {
     logger.debug("Generating zip file: {}", fileName)
 

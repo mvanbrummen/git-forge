@@ -83,6 +83,13 @@ class RepositoryRoute(
                     }
                   }
                 } ~
+                path("branch" / Segment) { branch =>
+                  post {
+                    onComplete(repositoryService.checkout(account, name, branch)) { ref =>
+                      complete(ref)
+                    }
+                  }
+                } ~
                 path("zip" / Segment) { fileName =>
                   get {
                     onComplete(repositoryService.getZip(account, name, fileName)) {
