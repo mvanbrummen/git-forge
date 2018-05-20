@@ -83,9 +83,9 @@ class RepositoryRoute(
                     }
                   }
                 } ~
-                path(Segment / "zip" / Segment) { case (branch, fileName) =>
+                path("zip" / Segment) { fileName =>
                   get {
-                    onComplete(repositoryService.getZip(account, name, branch, fileName)) {
+                    onComplete(repositoryService.getZip(account, name, fileName)) {
                       case Success(zipFilePath) => complete(HttpEntity(ContentTypes.`application/octet-stream`,
                         FileIO.fromPath(Paths.get(zipFilePath), CHUNK_SIZE)
                       ))

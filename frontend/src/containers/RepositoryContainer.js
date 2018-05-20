@@ -44,7 +44,7 @@ class RepositoryContainer extends Component {
 
         const { userName, repoName } = this.props.match.params;
         const zipFileName = `${repoName}_master.zip`;
-        const zipFileUrl = getZipFileUrl(userName, repoName, 'master', zipFileName);
+        const zipFileUrl = getZipFileUrl(userName, repoName, zipFileName);
 
         return (
             <div className="container">

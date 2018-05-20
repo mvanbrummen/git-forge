@@ -66,6 +66,6 @@ function getCommitDiffs(account, repoName, oldSha, newSha) {
     return axios.get(url + queryString).then(resp => resp.data);
 }
 
-function getZipFileUrl(account, repoName, branch, fileName) {
-    return `${BASE_URL}/repository/${account}/${repoName}/${branch}/zip/${fileName}`;
+function getZipFileUrl(account, repoName, fileName) {
+    return `${BASE_URL}/repository/${account}/${repoName}/zip/${fileName}`;
 }

@@ -68,11 +68,8 @@ class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: Git
     Refs(branches, tags)
   }
 
-  def getZip(account: String, name: String, branch: String, fileName: String): Future[String] = Future {
+  def getZip(account: String, name: String, fileName: String): Future[String] = Future {
     logger.debug("Generating zip file: {}", fileName)
-
-    // TODO switch branch
-    val git = gitUtil.openRepository(account, name)
 
     val unixTimestamp = Instant.now.getEpochSecond
 
