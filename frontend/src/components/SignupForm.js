@@ -14,22 +14,31 @@ const SignupForm = () => {
                 <form>
                     <div className="field">
                         <label class="label">Username</label>
-                        <div className="control">
+                        <p class="control has-icons-left">
                             <input className="input" type="text" placeholder="Pick a username" />
-                        </div>
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-user"></i>
+                            </span>
+                        </p>
                     </div>
                     <div className="field">
                         <label class="label">Email Address</label>
-                        <div className="control">
+                        <p class="control has-icons-left">
                             <input className="input" type="email" placeholder="you@example.com" />
-                        </div>
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </p>
                     </div>
                     <div className="field">
                         <label class="label">Password</label>
-                        <div className="control">
+                        <p class="control has-icons-left">
                             <input className="input" type="password" placeholder="Choose your password" />
                             <p class="help">Use at least one letter, one numeral, and seven characters.</p>
-                        </div>
+                            <span class="icon is-small is-left">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </p>
                     </div>
                     <button className="button is-block is-success is-fullwidth">Sign up to GitForge</button>
 

@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import { authUser } from '../util/AuthService';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
+
+const styles = {
+    header: {
+        marginBottom: '1rem'
+    },
+    loginLink: {
+        marginTop: '1rem'
+    },
+    logo: {
+        color: '#ff8026'
+    }
+}
 
 class LoginContainer extends Component {
 
@@ -34,15 +46,23 @@ class LoginContainer extends Component {
     render() {
         return (
 
-            <div className="container has-text-centered">
+            <div className="container">
                 {
                     this.state.authed &&
                     <Redirect to='/' />}
 
-                <div className="column is-4 is-offset-4">
+                <div className="column is-6 is-offset-3">
+                    <div className="has-text-centered" style={styles.header}>
+                        <h3 className="title has-text-grey is-size-1">Git<span style={styles.logo}>Forge</span></h3>
+                        <h3 className="subtitle has-text-grey">Login to continue</h3>
+                    </div>
                     <LoginForm submitLoginForm={this.submitLoginForm}
                         handlePasswordChange={this.handlePasswordChange}
                         handleUsernameChange={this.handleUsernameChange} />
+
+                    <div style={styles.loginLink}>
+                        <Link to="/signup" >Need an account?</Link>
+                    </div>
                 </div>
             </div>
 
