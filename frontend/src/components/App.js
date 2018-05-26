@@ -16,6 +16,7 @@ import CommitHistoryContainer from '../containers/CommitHistoryContainer';
 import CommitDiffContainer from '../containers/CommitDiffContainer';
 import BranchContainer from '../containers/BranchContainer';
 import BranchCreateContainer from '../containers/BranchCreateContainer';
+import HomeContainer from '../containers/HomeContainer';
 
 class App extends Component {
     constructor() {
@@ -30,6 +31,7 @@ class App extends Component {
                 <Nav />
 
                 <Switch>
+                    <Route exact path="/home" component={HomeContainer} />
                     <Route exact path="/" component={DashboardContainer} />
                     <Route exact path="/login" component={LoginContainer} />
                     <Route exact path="/signup" component={SignupContainer} />

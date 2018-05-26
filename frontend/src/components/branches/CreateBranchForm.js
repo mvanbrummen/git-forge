@@ -38,7 +38,7 @@ const CreateBranchForm = ({ createBranchSubmit, handleChange }) => (
                     <div className="field">
                         <div class="field is-grouped">
                             <div className="control">
-                                <button className="button is-success">
+                                <button className="button is-primary">
                                     Create Branch
 </button>
                             </div>

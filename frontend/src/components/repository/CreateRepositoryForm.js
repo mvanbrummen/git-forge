@@ -60,7 +60,7 @@ const CreateRepositoryForm = ({ createRepoSubmit, handleChange }) => (
                 <div className="field-body">
                     <div className="field">
                         <div className="control">
-                            <button className="button is-success">
+                            <button className="button is-primary">
                                 Create
 </button>
                         </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
-import Logo from '../logo.png';
+import Logo from '../images/logo.png';
 import { Link, Redirect } from 'react-router-dom';
 import { isUserAuthed, clearAuth } from '../util/AuthService';
 
@@ -94,7 +94,7 @@ class Nav extends Component {
                                     <input className="input" type="text" placeholder="Find a repository" />
                                 </p>
                                 <p className="control">
-                                    <button className="button is-success">
+                                    <button className="button is-primary">
                                         <i className="fa fa-search"></i>
                                     </button>
                                 </p>
