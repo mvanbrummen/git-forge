@@ -58,7 +58,7 @@ class BranchContainer extends Component {
                                     />
                                 </div>
                                 <div className="level-right">
-                                    <input className="is-success button"
+                                    <input className="is-primary button"
                                         value="New Branch"
                                         type="button" />
                                 </div>

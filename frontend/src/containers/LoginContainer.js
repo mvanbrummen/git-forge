@@ -53,7 +53,9 @@ class LoginContainer extends Component {
 
                 <div className="column is-6 is-offset-3">
                     <div className="has-text-centered" style={styles.header}>
-                        <h3 className="title has-text-grey is-size-1">Git<span style={styles.logo}>Forge</span></h3>
+                        <Link to="/home">
+                            <h3 className="title has-text-grey is-size-1">Git<span style={styles.logo}>Forge</span></h3>
+                        </Link>
                         <h3 className="subtitle has-text-grey">Login to continue</h3>
                     </div>
                     <LoginForm submitLoginForm={this.submitLoginForm}
@@ -65,7 +67,6 @@ class LoginContainer extends Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }

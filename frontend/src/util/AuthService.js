@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 
-export { authUser, isUserAuthed, getUserAuth, clearAuth, getUserAuthObject };
+export { authUser, isUserAuthed, getUserAuth, clearAuth, getUserAuthObject, createUser };
 
 const BASE_URL = 'http://localhost:8080';
 const USER_TOKEN = 'USER_TOKEN';
@@ -11,6 +11,23 @@ function authUser(username, password) {
     return axios.post(url, {
         username: username,
         password: password
+    }, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(resp => {
+            localStorage.setItem(USER_TOKEN, resp.data.token);
+
+            return resp.data;
+        })
+        .catch(e => e)
+}
+
+function createUser(username, emailAddress, password) {
+    const url = `${BASE_URL}/account`;
+    return axios.post(url, {
+        username: username,
+        password: password,
+        email: emailAddress
     }, {
             headers: { 'Content-Type': 'application/json' }
         })

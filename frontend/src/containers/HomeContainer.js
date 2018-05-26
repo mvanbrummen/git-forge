@@ -1,16 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Bg from '../images/bg.png';
 import SignupForm from '../components/SignupForm';
 import Nav from '../components/Nav';
-import Typing from 'react-typing-animation';
-
-const subtitles = [
-    'Built with love by developers, for developers.',
-    'Backend written in Scala, Akka HTTP with a frontend in ReactJS',
-    'Repositories, groups, branches and tags. The core functionality that you need!',
-    'Simple deployment. Just java -jar that shit!',
-    'Fantastic performance built on the JVM.'
-]
+import { Redirect } from 'react-router-dom';
+import { createUser } from '../util/AuthService';
 
 const styles = {
     background: {
@@ -24,40 +17,75 @@ const styles = {
     }
 }
 
-const HomeContainer = () => (
-    <div>
-        <Nav />
-        <section className="hero is-fullheight" style={styles.background}>
-            <div className="hero-body">
-                <div className="container">
+class HomeContainer extends Component {
 
-                    <div className="columns">
-                        <div className="column">
-                            <h1 className="title is-size-1">
-                                Open source Git Hosting</h1>
+    state = {
+        username: '',
+        password: '',
+        emailAddress: '',
+        authed: false
+    }
 
-                            <Typing speed={10} loop={true}>
-                                {subtitles.map(s =>
-                                    <div>
-                                        <h2 className="subtitle is-size-3">
-                                            {s}
-                                        </h2>
-                                        <Typing.Delay ms={3000} />
-                                        <Typing.Backspace count={s.length} />
-                                    </div>
-                                )
-                                }
-                            </Typing>
+    handleUsernameChange = (e) => {
+        this.setState({ username: e.target.value });
+    }
 
-                        </div>
-                        <div className="column" style={styles.form}>
-                            <SignupForm />
+    handlePasswordChange = (e) => {
+        this.setState({ password: e.target.value });
+    }
+
+    handleEmailAddressChange = (e) => {
+        this.setState({ emailAddress: e.target.value });
+    }
+
+    submitSignupForm = (e) => {
+        e.preventDefault();
+
+        createUser(this.state.username, this.state.emailAddress, this.state.password)
+            .then((resp) => {
+                console.log('Authed! ' + resp.token);
+                this.setState({
+                    authed: true
+                });
+            });
+    }
+
+
+    render() {
+        return (
+            <div>
+                {
+                    this.state.authed &&
+                    <Redirect to='/' />}
+
+                <Nav />
+                <section className="hero is-fullheight" style={styles.background}>
+                    <div className="hero-body">
+                        <div className="container">
+
+                            <div className="columns">
+                                <div className="column">
+                                    <h1 className="title is-size-1">
+                                        Open source Git Hosting</h1>
+
+                                    <h2 className="subtitle is-size-3">
+                                        Built with love by developers, for developers</h2>
+
+                                </div>
+                                <div className="column" style={styles.form}>
+                                    <SignupForm
+                                        submitForm={this.submitSignupForm}
+                                        handleUsernameChange={this.handleUsernameChange}
+                                        handlePasswordChange={this.handlePasswordChange}
+                                        handleEmailAddressChange={this.handleEmailAddressChange}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
-        </section>
-    </div>
-)
-
+        )
+    }
+}
 export default HomeContainer;

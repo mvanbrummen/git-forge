@@ -7,15 +7,16 @@ const styles = {
     }
 }
 
-const SignupForm = () => {
+const SignupForm = ({ submitForm, handleUsernameChange, handlePasswordChange, handleEmailAddressChange }) => {
     return (
         <div>
             <div className="box">
-                <form>
+                <form onSubmit={submitForm}>
                     <div className="field">
                         <label class="label">Username</label>
                         <p class="control has-icons-left">
-                            <input className="input" type="text" placeholder="Pick a username" />
+                            <input className="input" type="text" placeholder="Pick a username"
+                                onChange={handleUsernameChange} />
                             <span class="icon is-small is-left">
                                 <i class="fa fa-user"></i>
                             </span>
@@ -24,7 +25,8 @@ const SignupForm = () => {
                     <div className="field">
                         <label class="label">Email Address</label>
                         <p class="control has-icons-left">
-                            <input className="input" type="email" placeholder="you@example.com" />
+                            <input className="input" type="email" placeholder="you@example.com"
+                                onChange={handleEmailAddressChange} />
                             <span class="icon is-small is-left">
                                 <i class="fa fa-envelope"></i>
                             </span>
@@ -33,7 +35,8 @@ const SignupForm = () => {
                     <div className="field">
                         <label class="label">Password</label>
                         <p class="control has-icons-left">
-                            <input className="input" type="password" placeholder="Choose your password" />
+                            <input className="input" type="password" placeholder="Choose your password"
+                                onChange={handlePasswordChange} />
                             <p class="help">Use at least one letter, one numeral, and seven characters.</p>
                             <span class="icon is-small is-left">
                                 <i class="fa fa-lock"></i>

@@ -4,14 +4,14 @@ import java.io.File
 import java.time.Instant
 import java.util.UUID
 
-import mvanbrummen.gitforge.core.{AccountUUID, Repository, RepositorySummary}
+import mvanbrummen.gitforge.core.{ AccountUUID, Repository, RepositorySummary }
 import mvanbrummen.gitforge.utils.FileUtil
 import mvanbrummen.gitforge.utils.git._
 import org.eclipse.jgit.errors.RepositoryNotFoundException
 import org.slf4j.LoggerFactory
 import org.zeroturnaround.zip.ZipUtil
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 class RepositoryService(repositoryRepository: RepositoryRepository, gitUtil: GitUtil)(implicit ec: ExecutionContext) {
   private val logger = LoggerFactory.getLogger(getClass.getName)
