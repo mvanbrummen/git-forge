@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
-import Nav from './Nav';
 
 import { Route, Switch } from 'react-router-dom';
 import { loadProgressBar } from 'axios-progress-bar';
@@ -28,8 +27,6 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Nav />
-
                 <Switch>
                     <Route exact path="/home" component={HomeContainer} />
                     <Route exact path="/" component={DashboardContainer} />

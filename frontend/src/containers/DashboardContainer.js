@@ -6,6 +6,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import Pagination from '../components/dashboard/Pagination';
 import DashboardTabs from '../components/dashboard/DashboardTabs';
 import DashboardTable from '../components/dashboard/DashboardTable';
+import Nav from '../components/Nav';
 
 class DashboardContainer extends Component {
 
@@ -30,29 +31,32 @@ class DashboardContainer extends Component {
         const { repositories, reposEmpty, account } = this.state;
 
         return (
-            <div className="container">
-                <div className="columns">
-                    <div className="column is-10 is-offset-1">
-                        <h3 className="has-text-grey-dark title is-size-5">Repositories</h3>
-                        <hr />
+            <div>
+                <Nav />
+                <div className="container">
+                    <div className="columns">
+                        <div className="column is-10 is-offset-1">
+                            <h3 className="has-text-grey-dark title is-size-5">Repositories</h3>
+                            <hr />
 
-                        <DashboardTabs />
+                            <DashboardTabs />
 
-                        {!reposEmpty &&
-                            <div className="has-text-center">
-                                <h1 className="subtitle">
-                                    Create a repository to get started
+                            {!reposEmpty &&
+                                <div className="has-text-center">
+                                    <h1 className="subtitle">
+                                        Create a repository to get started
                                 </h1>
 
-                            </div>
-                        }
+                                </div>
+                            }
 
-                        <DashboardTable repositories={repositories} account={account} />
+                            <DashboardTable repositories={repositories} account={account} />
 
-                        {repositories.length > 0 &&
-                            <hr /> &&
-                            <Pagination />
-                        }
+                            {repositories.length > 0 &&
+                                <hr /> &&
+                                <Pagination />
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

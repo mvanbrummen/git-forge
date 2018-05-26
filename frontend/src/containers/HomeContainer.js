@@ -1,6 +1,7 @@
 import React from 'react';
 import Bg from '../images/bg.png';
 import SignupForm from '../components/SignupForm';
+import Nav from '../components/Nav';
 import Typing from 'react-typing-animation';
 
 const subtitles = [
@@ -25,6 +26,7 @@ const styles = {
 
 const HomeContainer = () => (
     <div>
+        <Nav />
         <section className="hero is-fullheight" style={styles.background}>
             <div className="hero-body">
                 <div className="container">

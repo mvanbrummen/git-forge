@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { getRefs } from '../util/RepositoryService';
 import Breadcrumb from '../components/repository/Breadcrumb';
 import BranchesTable from '../components/branches/BranchesTable';
+import Nav from '../components/Nav';
 
 class BranchContainer extends Component {
 
@@ -38,30 +39,33 @@ class BranchContainer extends Component {
     render() {
         const { branches } = this.state;
         return (
-            <div className="container" >
-                <div className="columns">
-                    <div className="column is-10 is-offset-1">
-                        <Breadcrumb userName={this.props.match.params.userName}
-                            repoName={this.props.match.params.repoName}
-                            breadcrumbs={['branches']} />
-                        <hr />
+            <div>
+                <Nav />
+                <div className="container" >
+                    <div className="columns">
+                        <div className="column is-10 is-offset-1">
+                            <Breadcrumb userName={this.props.match.params.userName}
+                                repoName={this.props.match.params.repoName}
+                                breadcrumbs={['branches']} />
+                            <hr />
 
-                        <div className="level">
-                            <div className="level-left">
-                                <input className="input"
-                                    type="text"
-                                    placeholder="Filter by name..."
-                                    onChange={this.filterBranches}
-                                />
+                            <div className="level">
+                                <div className="level-left">
+                                    <input className="input"
+                                        type="text"
+                                        placeholder="Filter by name..."
+                                        onChange={this.filterBranches}
+                                    />
+                                </div>
+                                <div className="level-right">
+                                    <input className="is-success button"
+                                        value="New Branch"
+                                        type="button" />
+                                </div>
                             </div>
-                            <div className="level-right">
-                                <input className="is-success button"
-                                    value="New Branch"
-                                    type="button" />
-                            </div>
+
+                            <BranchesTable branches={branches} />
                         </div>
-
-                        <BranchesTable branches={branches} />
                     </div>
                 </div>
             </div>

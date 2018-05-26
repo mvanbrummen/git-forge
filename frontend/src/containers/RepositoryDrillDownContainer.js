@@ -5,6 +5,7 @@ import Breadcrumb from '../components/repository/Breadcrumb';
 import { getItemsByPath } from '../util/RepositoryService';
 import DirectoryTable from '../components/repository/DirectoryTable';
 import BlobView from '../components/repository/BlobView';
+import Nav from '../components/Nav';
 
 class RepositoryDrillDownContainer extends Component {
 
@@ -51,19 +52,22 @@ class RepositoryDrillDownContainer extends Component {
         const url = this.props.match.url;
 
         return (
-            <div className="container">
-                <div className="columns">
-                    <div className="column is-10 is-offset-1">
-                        <Breadcrumb userName={userName}
-                            repoName={repoName}
-                            breadcrumbs={breadcrumbs} />
+            <div>
+                <Nav />
+                <div className="container">
+                    <div className="columns">
+                        <div className="column is-10 is-offset-1">
+                            <Breadcrumb userName={userName}
+                                repoName={repoName}
+                                breadcrumbs={breadcrumbs} />
 
-                        <DirectoryTable items={items}
-                            url={url} />
+                            <DirectoryTable items={items}
+                                url={url} />
 
-                        {this.props.location.state.displayFile &&
-                            <BlobView userName={userName} repoName={repoName} path={path} />
-                        }
+                            {this.props.location.state.displayFile &&
+                                <BlobView userName={userName} repoName={repoName} path={path} />
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
