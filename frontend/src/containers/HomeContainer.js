@@ -1,6 +1,15 @@
 import React from 'react';
 import Bg from '../images/bg.png';
 import SignupForm from '../components/SignupForm';
+import Typing from 'react-typing-animation';
+
+const subtitles = [
+    'Built with love by developers, for developers.',
+    'Backend written in Scala, Akka HTTP with a frontend in ReactJS',
+    'Repositories, groups, branches and tags. The core functionality that you need!',
+    'Simple deployment. Just java -jar that shit!',
+    'Fantastic performance built on the JVM.'
+]
 
 const styles = {
     background: {
@@ -24,13 +33,23 @@ const HomeContainer = () => (
                         <div className="column">
                             <h1 className="title is-size-1">
                                 Open source Git Hosting</h1>
-                            <h2 className="subtitle is-size-3">
-                                Built with love by developers, for developers</h2>
+
+                            <Typing speed={10} loop={true}>
+                                {subtitles.map(s =>
+                                    <div>
+                                        <h2 className="subtitle is-size-3">
+                                            {s}
+                                        </h2>
+                                        <Typing.Delay ms={3000} />
+                                        <Typing.Backspace count={s.length} />
+                                    </div>
+                                )
+                                }
+                            </Typing>
+
                         </div>
                         <div className="column" style={styles.form}>
-
                             <SignupForm />
-
                         </div>
                     </div>
                 </div>
