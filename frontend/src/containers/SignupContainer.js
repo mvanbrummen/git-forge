@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import SignupForm from '../components/SignupForm';
 import { Link, Redirect } from 'react-router-dom';
 import { createUser } from '../util/AuthService';
+import { connect } from 'react-redux';
+import { register } from '../actions/UserActions';
 
 const styles = {
     header: {
@@ -39,21 +41,18 @@ class SignupContainer extends Component {
     submitSignupForm = (e) => {
         e.preventDefault();
 
-        createUser(this.state.username, this.state.emailAddress, this.state.password)
-            .then((resp) => {
-                console.log('Authed! ' + resp.token);
-                this.setState({
-                    authed: true
-                });
-            });
+        this.props.dispatch(register(this.state.username, this.state.emailAddress, this.state.password));
     }
 
     render() {
+        const { loggedIn } = this.props;
+
         return (
             <div className="container">
                 {
-                    this.state.authed &&
-                    <Redirect to='/' />}
+                    loggedIn &&
+                    <Redirect to='/' />
+                }
 
                 <div className="column is-6 is-offset-3">
                     <div className="has-text-centered" style={styles.header}>
@@ -77,4 +76,14 @@ class SignupContainer extends Component {
     }
 }
 
-export default SignupContainer;
+function mapStateToProps(state) {
+    const { registration } = state;
+    const { user, loggedIn } = registration;
+    return {
+        loggedIn,
+        user
+    };
+}
+
+const connectedSignupContainer = connect(mapStateToProps)(SignupContainer);
+export { connectedSignupContainer as SignupContainer }; 

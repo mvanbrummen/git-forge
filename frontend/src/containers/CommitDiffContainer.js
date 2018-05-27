@@ -4,7 +4,7 @@ import { getCommitDiffs, getRefs } from '../util/RepositoryService';
 import CommitDiff from '../components/commits/CommitDiff';
 import Breadcrumb from '../components/repository/Breadcrumb';
 import BranchDropdown from '../components/repository/BranchDropdown';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 class CommitDiffContainer extends Component {
     state = {

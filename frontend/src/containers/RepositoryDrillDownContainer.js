@@ -5,7 +5,7 @@ import Breadcrumb from '../components/repository/Breadcrumb';
 import { getItemsByPath } from '../util/RepositoryService';
 import DirectoryTable from '../components/repository/DirectoryTable';
 import BlobView from '../components/repository/BlobView';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 class RepositoryDrillDownContainer extends Component {
 

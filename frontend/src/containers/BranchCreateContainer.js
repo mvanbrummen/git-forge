@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CreateBranchForm from '../components/branches/CreateBranchForm';
 import { Redirect } from 'react-router-dom';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 class BranchCreateContainer extends Component {
 

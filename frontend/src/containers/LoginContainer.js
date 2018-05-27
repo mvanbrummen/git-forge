@@ -3,6 +3,9 @@ import { authUser } from '../util/AuthService';
 import { Redirect, Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 
+import { connect } from 'react-redux';
+import { login } from '../actions/UserActions';
+
 const styles = {
     header: {
         marginBottom: '1rem'
@@ -34,22 +37,18 @@ class LoginContainer extends Component {
     submitLoginForm = (e) => {
         e.preventDefault();
 
-        authUser(this.state.username, this.state.password)
-            .then((resp) => {
-                console.log('Authed! ' + resp.token);
-                this.setState({
-                    authed: true
-                });
-            });
+        const { username, password } = this.state;
+        this.props.dispatch(login(username, password));
     }
 
     render() {
-        return (
+        const { loggedIn, loggingIn } = this.props;
 
+        return (
             <div className="container">
-                {
-                    this.state.authed &&
-                    <Redirect to='/' />}
+                { loggedIn &&
+                <Redirect to="/" />
+                }
 
                 <div className="column is-6 is-offset-3">
                     <div className="has-text-centered" style={styles.header}>
@@ -71,4 +70,14 @@ class LoginContainer extends Component {
     }
 }
 
-export default LoginContainer;
+function mapStateToProps(state) {
+    const { authentication } = state;
+    const { loggingIn, loggedIn } = authentication;
+    return {
+        loggingIn,
+        loggedIn
+    };
+}
+
+const connectedLoginContainer = connect(mapStateToProps)(LoginContainer);
+export { connectedLoginContainer as LoginContainer }; 

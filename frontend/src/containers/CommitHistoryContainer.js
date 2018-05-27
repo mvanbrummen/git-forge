@@ -4,7 +4,7 @@ import Breadcrumb from '../components/repository/Breadcrumb';
 import { getAllCommitsByRef, getRefs } from '../util/RepositoryService';
 import CommitHistory from '../components/commits/CommitHistory';
 import BranchDropdown from '../components/repository/BranchDropdown';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 // hardcode for now
 const ref = 'master';

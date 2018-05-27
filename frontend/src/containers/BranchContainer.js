@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getRefs } from '../util/RepositoryService';
 import Breadcrumb from '../components/repository/Breadcrumb';
 import BranchesTable from '../components/branches/BranchesTable';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 class BranchContainer extends Component {
 

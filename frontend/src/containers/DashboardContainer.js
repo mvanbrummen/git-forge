@@ -6,7 +6,9 @@ import 'font-awesome/css/font-awesome.min.css';
 import Pagination from '../components/dashboard/Pagination';
 import DashboardTabs from '../components/dashboard/DashboardTabs';
 import DashboardTable from '../components/dashboard/DashboardTable';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
+import { logout } from '../actions/UserActions'
+import { connect } from 'react-redux';
 
 class DashboardContainer extends Component {
 
@@ -27,12 +29,18 @@ class DashboardContainer extends Component {
         this.setState({ reposEmpty: this.state.repositories.length === 0 });
     }
 
+    handleLogout = (e) => {
+        alert('logout!');
+
+        this.props.dispatch(logout());
+    }
+
     render() {
         const { repositories, reposEmpty, account } = this.state;
 
         return (
             <div>
-                <Nav />
+                <Nav user={this.props.user} logout={this.handleLogout} />
                 <div className="container">
                     <div className="columns">
                         <div className="column is-10 is-offset-1">
@@ -64,4 +72,13 @@ class DashboardContainer extends Component {
     }
 }
 
-export default DashboardContainer;
+function mapStateToProps(state) {
+    const { user } = state;
+    return {
+        user
+    };
+}
+
+const connectedDashboardContainer = connect(mapStateToProps)(DashboardContainer);
+export { connectedDashboardContainer as DashboardContainer };
+

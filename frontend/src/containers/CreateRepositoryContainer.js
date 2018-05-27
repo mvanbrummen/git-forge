@@ -3,7 +3,7 @@ import { createRepository } from '../util/RepositoryService';
 import { getUserAuthObject } from '../util/AuthService';
 import { Redirect } from 'react-router-dom';
 import CreateRepositoryForm from '../components/repository/CreateRepositoryForm';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 class CreateRepositoryContainer extends Component {
 

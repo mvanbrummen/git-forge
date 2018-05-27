@@ -14,7 +14,7 @@ import DownloadDropdown from '../components/repository/DownloadDropdown';
 import DirectoryTable from '../components/repository/DirectoryTable';
 import ReadmeTable from '../components/repository/ReadmeTable';
 import DownloadButton from '../components/repository/DownloadButton';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 
 class RepositoryContainer extends Component {
 

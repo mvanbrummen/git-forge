@@ -4,7 +4,9 @@ import 'bulma/css/bulma.css';
 import 'font-awesome/css/font-awesome.min.css';
 import Logo from '../images/logo.png';
 import { Link, Redirect } from 'react-router-dom';
-import { isUserAuthed, clearAuth } from '../util/AuthService';
+import { clearAuth } from '../util/AuthService';
+import { connect } from 'react-redux';
+import { logout } from '../actions/UserActions';
 
 class Nav extends Component {
 
@@ -53,21 +55,18 @@ class Nav extends Component {
         });
     }
 
-    logout = (e) => {
+    handleLogout = (e) => {
         e.preventDefault();
-        clearAuth();
-        this.setState({
-            loggedOut: true
-        });
+
+        this.props.dispatch(logout());
     }
 
     render() {
         return (
             <nav className="navbar is-dark level" aria-label="main navigation">
 
-                {
-                    this.state.loggedOut &&
-                    <Redirect to='/' />
+                {!this.props.loggedIn &&
+                    <Redirect to="/home" />
                 }
 
                 <div className="navbar-brand">
@@ -82,11 +81,11 @@ class Nav extends Component {
 
                 <div className="navbar-end">
 
-                    {!isUserAuthed() && <Link to="/login" className="navbar-item"  >
+                    {!this.props.loggedIn && <Link to="/login" className="navbar-item"  >
                         <p> <span className="has-text-weight-bold">Login</span> or <span className="has-text-weight-bold">Signup</span></p>
                     </Link>}
 
-                    {isUserAuthed() &&
+                    {this.props.loggedIn &&
 
                         <div className="navbar-item" >
                             <div className="field has-addons">
@@ -102,7 +101,7 @@ class Nav extends Component {
                         </div>
                     }
 
-                    {isUserAuthed() &&
+                    {this.props.loggedIn &&
                         <div className={'navbar-item has-dropdown' + (this.state.plusClicked ? ' is-active' : '')}>
                             <a className="navbar-link"
                                 onClick={this.handleClickPlus}>
@@ -118,13 +117,20 @@ class Nav extends Component {
                         </div>
                     }
 
-                    {isUserAuthed() &&
+                    {this.props.loggedIn &&
                         <div className={'navbar-item has-dropdown' + (this.state.profileClicked ? ' is-active' : '')}>
                             <a className="navbar-link" onClick={this.handleClickProfile}>
                                 <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c03d50?d=identicon" alt="avatar.png" />
                             </a>
 
                             <div className="navbar-dropdown is-right">
+
+                                {this.props.user !== null &&
+                                    <div className="navbar-item">
+                                        Logged in as {this.props.user.username}
+                                    </div>
+                                }
+
                                 <a className="navbar-item">
                                     Profile
           </a>
@@ -133,7 +139,7 @@ class Nav extends Component {
           </a>
 
                                 <hr className="navbar-divider" />
-                                <a className="navbar-item" onClick={this.logout}>
+                                <a className="navbar-item" onClick={this.handleLogout}>
                                     Logout
                                 </a>
                             </div>
@@ -147,4 +153,14 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+function mapStateToProps(state) {
+    const { authentication } = state;
+    const { loggedIn, user } = authentication;
+    return {
+        loggedIn,
+        user
+    };
+}
+
+const connectedNav = connect(mapStateToProps)(Nav);
+export { connectedNav as Nav }; 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Bg from '../images/bg.png';
 import SignupForm from '../components/SignupForm';
-import Nav from '../components/Nav';
+import { Nav } from '../components/Nav';
 import { Redirect } from 'react-router-dom';
 import { createUser } from '../util/AuthService';
 
